@@ -34,7 +34,7 @@ export default function TimerCard({
                         {primaryLabel}
                     </button>
                     {phase === 'focus' && (
-                        <button type="button" className="btn-secondary" onClick={onStartBreak}>
+                        <button type="button" className="btn-secondary btn-break" onClick={onStartBreak}>
                             Skip to Break
                         </button>
                     )}

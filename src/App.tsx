@@ -3,7 +3,6 @@ import TabBar from './components/TabBar'
 import PageHeader from './components/PageHeader'
 import TimerCard from './components/TimerCard'
 import StatsGrid from './components/StatsGrid'
-import PlaceholderView from './components/PlaceholderView'
 import { usePomodoroTimer } from './hooks/usePomodoroTimer'
 import type { TabKey } from './constants'
 
@@ -29,10 +28,6 @@ export default function App() {
                     onStartBreak={timer.startBreak}
                     onReset={timer.resetTimer}
                 />
-            )}
-
-            {activeTab === 'stats' && (
-                <PlaceholderView title="Stats" description="Detailed charts and metrics will be coming in a future update." />
             )}
 
             {activeTab === 'settings' && (
@@ -78,11 +73,13 @@ export default function App() {
                 </main>
             )}
 
-            <StatsGrid
-                focusMinutesToday={timer.focusMinutesToday}
-                sessionsCompletedToday={timer.sessionsCompletedToday}
-                sessionsUntilLongBreak={timer.sessionsUntilLongBreak}
-            />
+            <div className="desktop-only-stats">
+                <StatsGrid
+                    focusMinutesToday={timer.focusMinutesToday}
+                    sessionsCompletedToday={timer.sessionsCompletedToday}
+                    sessionsUntilLongBreak={timer.sessionsUntilLongBreak}
+                />
+            </div>
         </div>
     )
 }
