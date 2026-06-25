@@ -1,7 +1,0 @@
-Cuore (by Francesco)
-Pausa
-Bottone
-Long Break
-Stats funzionanti (grafico)
-Versione iOS con Layout differente
-Animazione finale

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { SESSIONS_BEFORE_LONG_BREAK } from '../constants'
 
-export type Phase = 'focus' | 'short-break' | 'long-break'
+export type Phase = 'idle' | 'focus' | 'short-break' | 'long-break' | 'paused'
 
 function formatTime(totalSeconds: number): string {
     const minutes = Math.floor(totalSeconds / 60)
@@ -16,106 +15,138 @@ function formatIsoDuration(totalSeconds: number): string {
 }
 
 export function usePomodoroTimer() {
-    const [focusMinutes, setFocusMinutes] = useState(20)
+    const [focusMinutes, setFocusMinutes] = useState(25)
     const [shortBreakMinutes, setShortBreakMinutes] = useState(5)
     const [longBreakMinutes, setLongBreakMinutes] = useState(15)
 
-    const [phase, setPhase] = useState<Phase>('focus')
-    const [secondsLeft, setSecondsLeft] = useState(20 * 60)
+    const [phase, setPhase] = useState<Phase>('idle')
+    const [previousPhase, setPreviousPhase] = useState<Phase>('focus')
+    const [secondsLeft, setSecondsLeft] = useState(25 * 60)
     const [isRunning, setIsRunning] = useState(false)
+    const [cyclesCompleted, setCyclesCompleted] = useState(0)
+
     const [sessionsCompletedToday, setSessionsCompletedToday] = useState(0)
     const [focusMinutesToday, setFocusMinutesToday] = useState(0)
-    const [sessionsUntilLongBreak, setSessionsUntilLongBreak] = useState(SESSIONS_BEFORE_LONG_BREAK)
 
     useEffect(() => {
-        if (isRunning) return
-        if (phase === 'focus') {
+        if (phase === 'idle') {
             setSecondsLeft(focusMinutes * 60)
-        } else if (phase === 'short-break') {
-            setSecondsLeft(shortBreakMinutes * 60)
-        } else if (phase === 'long-break') {
-            setSecondsLeft(longBreakMinutes * 60)
         }
-    }, [focusMinutes, shortBreakMinutes, longBreakMinutes, phase, isRunning])
+    }, [focusMinutes, phase])
 
     useEffect(() => {
         if (!isRunning) return
 
         const intervalId = window.setInterval(() => {
-            setSecondsLeft((prev) => (prev > 0 ? prev - 1 : 0))
+            setSecondsLeft((prev) => {
+                if (prev <= 1) {
+                    setIsRunning(false)
+                    return 0
+                }
+                return prev - 1
+            })
         }, 1000)
 
         return () => window.clearInterval(intervalId)
     }, [isRunning])
 
     useEffect(() => {
-        if (secondsLeft !== 0 || !isRunning) return
+        if (secondsLeft !== 0 || isRunning || phase === 'idle' || phase === 'paused') return
 
         if (phase === 'focus') {
-            setSessionsCompletedToday((count) => count + 1)
-            setFocusMinutesToday((minutes) => minutes + focusMinutes)
-            setSessionsUntilLongBreak((count) => Math.max(count - 1, 0))
-        }
+            const nextCycles = cyclesCompleted + 1
+            setCyclesCompleted(nextCycles)
+            setSessionsCompletedToday((prev) => prev + 1)
+            setFocusMinutesToday((prev) => prev + focusMinutes)
 
-        setIsRunning(false)
-        setPhase('focus')
-        setSecondsLeft(focusMinutes * 60)
-    }, [secondsLeft, isRunning, phase, focusMinutes])
+            if (nextCycles >= 4) {
+                setPhase('long-break')
+                setSecondsLeft(longBreakMinutes * 60)
+                setCyclesCompleted(0)
+            } else {
+                setPhase('short-break')
+                setSecondsLeft(shortBreakMinutes * 60)
+            }
+            setIsRunning(true)
+        } else if (phase === 'short-break' || phase === 'long-break') {
+            setPhase('focus')
+            setSecondsLeft(focusMinutes * 60)
+            setIsRunning(true)
+        }
+    }, [secondsLeft, isRunning, phase, cyclesCompleted, focusMinutes, shortBreakMinutes, longBreakMinutes])
 
     const startOrToggleFocus = useCallback(() => {
-        if (phase !== 'focus') {
+        if (phase === 'idle') {
             setPhase('focus')
             setSecondsLeft(focusMinutes * 60)
             setIsRunning(true)
             return
         }
 
-        if (isRunning) {
-            setIsRunning(false)
+        if (phase === 'paused') {
+            setPhase(previousPhase)
+            setIsRunning(true)
             return
         }
 
-        setSecondsLeft((prev) => (prev === 0 ? focusMinutes * 60 : prev))
+        if (isRunning) {
+            setIsRunning(false)
+            setPreviousPhase(phase)
+            setPhase('paused')
+            return
+        }
+
         setIsRunning(true)
-    }, [phase, isRunning, focusMinutes])
+    }, [phase, isRunning, previousPhase, focusMinutes])
 
     const startBreak = useCallback(() => {
-        const isLongBreakDue = sessionsUntilLongBreak === 0
-        const nextPhase = isLongBreakDue ? 'long-break' : 'short-break'
-        setPhase(nextPhase)
-        setSecondsLeft(isLongBreakDue ? longBreakMinutes * 60 : shortBreakMinutes * 60)
-        setIsRunning(true)
-
-        if (isLongBreakDue) {
-            setSessionsUntilLongBreak(SESSIONS_BEFORE_LONG_BREAK)
+        setIsRunning(false)
+        const nextCycles = cyclesCompleted + 1
+        if (nextCycles >= 4) {
+            setPhase('long-break')
+            setSecondsLeft(longBreakMinutes * 60)
+            setCyclesCompleted(0)
+        } else {
+            setPhase('short-break')
+            setSecondsLeft(shortBreakMinutes * 60)
+            setCyclesCompleted(nextCycles)
         }
-    }, [sessionsUntilLongBreak, shortBreakMinutes, longBreakMinutes])
+        setIsRunning(true)
+    }, [cyclesCompleted, shortBreakMinutes, longBreakMinutes])
 
-    const isFocusPhase = phase === 'focus'
-    const isFreshFocus = isFocusPhase && secondsLeft === focusMinutes * 60
+    const resetTimer = useCallback(() => {
+        setIsRunning(false)
+        setPhase('idle')
+        setCyclesCompleted(0)
+        setSecondsLeft(focusMinutes * 60)
+    }, [focusMinutes])
 
     const statusLabel = (() => {
-        if (phase === 'long-break') return 'Long Break'
+        if (phase === 'idle') return 'Ready'
+        if (phase === 'focus') return 'Focusing'
         if (phase === 'short-break') return 'Short Break'
-        if (isRunning) return 'Focusing'
-        if (isFreshFocus) return 'Ready'
-        return 'Paused'
+        if (phase === 'long-break') return 'Long Break'
+        if (phase === 'paused') return 'Paused'
+        return 'Ready'
     })()
 
     const messageLabel = (() => {
-        if (phase === 'long-break') return 'Time to fully recharge.'
+        if (phase === 'idle') return 'A clean slate awaits.'
+        if (phase === 'focus') return 'Stay in the zone.'
         if (phase === 'short-break') return 'Take a quick breath.'
-        if (isRunning) return 'Stay in the zone.'
-        if (isFreshFocus) return 'A clean slate awaits.'
-        return 'Ready when you are.'
+        if (phase === 'long-break') return 'Time to fully recharge.'
+        if (phase === 'paused') return 'Ready when you are.'
+        return 'A clean slate awaits.'
     })()
 
     const primaryLabel = (() => {
-        if (!isFocusPhase) return 'Start Focus'
+        if (phase === 'idle') return 'Start Focus'
+        if (phase === 'paused') return 'Resume'
         if (isRunning) return 'Pause'
-        if (isFreshFocus) return 'Start Focus'
-        return 'Resume'
+        return 'Start Focus'
     })()
+
+    const sessionsUntilLongBreak = Math.max(0, 4 - cyclesCompleted)
 
     return {
         phase,
@@ -131,6 +162,7 @@ export function usePomodoroTimer() {
         isoDuration: formatIsoDuration(secondsLeft),
         startOrToggleFocus,
         startBreak,
+        resetTimer,
         focusMinutes,
         shortBreakMinutes,
         longBreakMinutes,

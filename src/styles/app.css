@@ -6,6 +6,7 @@
     width: 100%;
     overflow: hidden;
     padding: max(var(--space-6), env(safe-area-inset-top)) max(var(--space-10), env(safe-area-inset-right)) max(var(--space-6), env(safe-area-inset-bottom)) max(var(--space-10), env(safe-area-inset-left));
+    transition: background-color var(--transition-normal) var(--ease);
 }
 
 .tab-bar {
@@ -49,6 +50,7 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
+    min-height: 2.75rem;
 }
 
 .page-header hgroup {
@@ -82,11 +84,32 @@
     gap: var(--space-2);
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-full);
-    border: 1px solid var(--accent-border);
-    background: var(--accent-soft);
-    color: var(--accent-strong);
+    border: 1px solid var(--neutral-200);
+    background: var(--surface);
+    color: var(--neutral-600);
     font-size: var(--font-size-sm);
     font-weight: var(--weight-semibold);
+    white-space: nowrap;
+    transition: all var(--transition-normal) var(--ease);
+}
+
+.status-badge.state-focus {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+}
+
+.status-badge.state-short-break,
+.status-badge.state-long-break {
+    border-color: #bdf4df;
+    background: #e6fbf4;
+    color: #0d9488;
+}
+
+.status-badge.state-paused {
+    border-color: #fde047;
+    background: #fef9c3;
+    color: #a16207;
 }
 
 .timer-card {
@@ -98,9 +121,21 @@
     min-height: 0;
     overflow: hidden;
     padding: var(--space-8) var(--space-10);
-    border: 1px solid var(--accent-soft);
+    border: 1px solid var(--neutral-200);
     border-radius: var(--radius-xl);
     background: var(--surface);
+    transition: transform var(--transition-normal) var(--ease), border-color var(--transition-normal) var(--ease), box-shadow var(--transition-normal) var(--ease);
+}
+
+.timer-card.card-state-focus {
+    border-color: var(--accent-soft);
+    box-shadow: 0 10px 30px -10px var(--accent-soft);
+}
+
+.timer-card.card-state-short-break,
+.timer-card.card-state-long-break {
+    border-color: #e6fbf4;
+    box-shadow: 0 10px 30px -10px #e6fbf4;
 }
 
 .timer-panel {
@@ -118,8 +153,13 @@
     font-weight: var(--weight-bold);
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--accent-strong);
+    color: var(--neutral-400);
+    transition: color var(--transition-normal) var(--ease);
 }
+
+.card-state-focus .timer-state { color: var(--accent-strong); }
+.card-state-short-break .timer-state, .card-state-long-break .timer-state { color: #0d9488; }
+.card-state-paused .timer-state { color: #a16207; }
 
 .timer-display {
     font-size: clamp(5.5rem, 15vh, var(--font-size-7xl));
@@ -127,7 +167,6 @@
     letter-spacing: -0.03em;
     line-height: 0.95;
     padding: var(--space-2) 0 var(--space-1);
-    transition: transform var(--transition-normal) var(--ease);
 }
 
 .timer-message {
@@ -167,12 +206,19 @@
 }
 
 .btn-secondary {
-    color: var(--accent-strong);
-    border: 1px solid var(--accent-border);
+    color: var(--neutral-600);
+    border: 1px solid var(--neutral-200);
 }
 
 .btn-secondary:hover {
-    background: var(--fuchsia-100);
+    background: var(--neutral-100);
+    color: var(--neutral-950);
+}
+
+.btn-reset:hover {
+    background: #fee2e2;
+    color: #dc2626;
+    border-color: #fecaca;
 }
 
 .btn-primary:active,
@@ -269,9 +315,49 @@
         opacity: 0;
         transform: translateY(4px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .app {
+        grid-template-rows: auto 1fr auto;
+        padding: max(var(--space-4), env(safe-area-inset-top)) var(--space-4) calc(var(--space-20) + env(safe-area-inset-bottom)) var(--space-4);
+    }
+
+    .tab-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--surface);
+        padding: var(--space-3) var(--space-4) calc(var(--space-3) + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--neutral-200);
+        z-self: stretch;
+        width: 100%;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.03);
+        z-index: 50;
+    }
+
+    .tab-bar ul {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        justify-content: space-around;
+        width: 100%;
+    }
+
+    .page-header hgroup p {
+        display: none;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stat-card-chart {
+        grid-column: span 2;
     }
 }

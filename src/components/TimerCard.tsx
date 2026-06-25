@@ -4,8 +4,10 @@ interface TimerCardProps {
     isoDuration: string
     messageLabel: string
     primaryLabel: string
+    phase: string
     onPrimaryAction: () => void
     onStartBreak: () => void
+    onReset: () => void
 }
 
 export default function TimerCard({
@@ -14,11 +16,13 @@ export default function TimerCard({
     isoDuration,
     messageLabel,
     primaryLabel,
+    phase,
     onPrimaryAction,
-    onStartBreak
+    onStartBreak,
+    onReset
 }: TimerCardProps) {
     return (
-        <main className="timer-card animate-fade-in">
+        <main className={`timer-card card-state-${phase} animate-fade-in`}>
             <section className="timer-panel" aria-label="Focus session">
                 <p className="timer-state">{statusLabel}</p>
                 <time className="timer-display" dateTime={isoDuration}>
@@ -29,9 +33,16 @@ export default function TimerCard({
                     <button type="button" className="btn-primary" onClick={onPrimaryAction}>
                         {primaryLabel}
                     </button>
-                    <button type="button" className="btn-secondary" onClick={onStartBreak}>
-                        Take a break
-                    </button>
+                    {phase === 'focus' && (
+                        <button type="button" className="btn-secondary" onClick={onStartBreak}>
+                            Skip to Break
+                        </button>
+                    )}
+                    {phase !== 'idle' && (
+                        <button type="button" className="btn-secondary btn-reset" onClick={onReset}>
+                            Reset Session
+                        </button>
+                    )}
                 </div>
             </section>
         </main>

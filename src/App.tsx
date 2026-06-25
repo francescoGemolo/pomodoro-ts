@@ -15,7 +15,7 @@ export default function App() {
         <div className="app">
             <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
-            <PageHeader statusLabel={timer.statusLabel} />
+            <PageHeader statusLabel={timer.statusLabel} phase={timer.phase} />
 
             {activeTab === 'timer' && (
                 <TimerCard
@@ -24,8 +24,10 @@ export default function App() {
                     isoDuration={timer.isoDuration}
                     messageLabel={timer.messageLabel}
                     primaryLabel={timer.primaryLabel}
+                    phase={timer.phase}
                     onPrimaryAction={timer.startOrToggleFocus}
                     onStartBreak={timer.startBreak}
+                    onReset={timer.resetTimer}
                 />
             )}
 
@@ -40,33 +42,33 @@ export default function App() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', width: '100%', padding: 'var(--space-4) 0' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <span style={{ fontWeight: 'var(--weight-semibold)' }}>Focus Time (min)</span>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    max="60"
-                                    value={timer.focusMinutes}
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    max="60" 
+                                    value={timer.focusMinutes} 
                                     onChange={(e) => timer.setFocusMinutes(Math.max(1, parseInt(e.target.value) || 1))}
                                     style={{ width: '4.5rem', padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--accent-border)', textAlign: 'center', fontFamily: 'inherit', fontWeight: 'var(--weight-bold)' }}
                                 />
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <span style={{ fontWeight: 'var(--weight-semibold)' }}>Short Break (min)</span>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    max="30"
-                                    value={timer.shortBreakMinutes}
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    max="30" 
+                                    value={timer.shortBreakMinutes} 
                                     onChange={(e) => timer.setShortBreakMinutes(Math.max(1, parseInt(e.target.value) || 1))}
                                     style={{ width: '4.5rem', padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--accent-border)', textAlign: 'center', fontFamily: 'inherit', fontWeight: 'var(--weight-bold)' }}
                                 />
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <span style={{ fontWeight: 'var(--weight-semibold)' }}>Long Break (min)</span>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    max="60"
-                                    value={timer.longBreakMinutes}
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    max="60" 
+                                    value={timer.longBreakMinutes} 
                                     onChange={(e) => timer.setLongBreakMinutes(Math.max(1, parseInt(e.target.value) || 1))}
                                     style={{ width: '4.5rem', padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--accent-border)', textAlign: 'center', fontFamily: 'inherit', fontWeight: 'var(--weight-bold)' }}
                                 />
