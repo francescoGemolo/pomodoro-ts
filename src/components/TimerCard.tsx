@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
 import catAnimation from "../assets/animations/catAnimation.json";
 
@@ -24,6 +25,18 @@ export default function TimerCard({
     onStartBreak,
     onReset
 }: TimerCardProps) {
+    const catPlayerRef = useRef<Player>(null);
+
+    useEffect(() => {
+        if (!catPlayerRef.current) return;
+
+        if (phase === 'focus') {
+            catPlayerRef.current.play();
+        } else {
+            catPlayerRef.current.pause();
+        }
+    }, [phase]);
+
     return (
         <main className={`timer-card card-state-${phase} animate-fade-in`}>
             <section className="timer-layout">
@@ -71,12 +84,14 @@ export default function TimerCard({
                 </div>
 
                 <div className="cat-container">
-                    <Player
-                        src={catAnimation}
-                        loop
-                        autoplay
-                        style={{ height: '300px', width: '300px' }} // Regola le dimensioni se necessario
-                    />
+                    <div className="cat-peek">
+                        <Player
+                            ref={catPlayerRef}
+                            src={catAnimation}
+                            loop
+                            style={{ height: '300px', width: '300px' }}
+                        />
+                    </div>
                 </div>
 
             </section>

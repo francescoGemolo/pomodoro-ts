@@ -1,5 +1,5 @@
 import { HugeiconsIcon } from '@hugeicons/react'
-import { HeartIcon, StudyLampIcon, CoffeeIcon, Flower2Icon, PlayIcon } from '@hugeicons/core-free-icons'
+import { StudyLampIcon, CoffeeIcon, Flower2Icon, PlayIcon } from '@hugeicons/core-free-icons'
 
 interface PageHeaderProps {
     statusLabel: string
@@ -17,10 +17,7 @@ export default function PageHeader({ statusLabel, phase }: PageHeaderProps) {
     return (
         <header className="page-header">
             <hgroup>
-                <h1>
-                    Ludi's Focus
-                    <HugeiconsIcon icon={HeartIcon} size={22} strokeWidth={2} />
-                </h1>
+                <h1>Ludi's Focus</h1>
                 <p>Made by Francesco with love!</p>
             </hgroup>
             <p className={`status-badge state-${phase}`}>

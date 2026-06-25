@@ -65,6 +65,10 @@
     --accent-soft: var(--fuchsia-100);
     --accent-border: var(--fuchsia-200);
 
+    --break-strong: #0d9488;
+    --break-soft: #e6fbf4;
+    --break-border: #bdf4df;
+
     --surface: #ffffff;
     --bg: var(--neutral-50);
 
