@@ -13,7 +13,7 @@ export default function PageHeader({ statusLabel }: PageHeaderProps) {
                     Ludi's Focus
                     <HugeiconsIcon icon={HeartIcon} size={22} strokeWidth={2} />
                 </h1>
-                <p>A clean block is waiting for you.</p>
+                <p>Made by Francesco with love!</p>
             </hgroup>
             <p className="status-badge">
                 <HugeiconsIcon icon={StudyLampIcon} size={16} strokeWidth={2} />
