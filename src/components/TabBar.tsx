@@ -15,7 +15,7 @@ interface TabBarProps {
 
 export default function TabBar({ activeTab, onChange }: TabBarProps) {
     return (
-        <nav className="tab-bar" aria-label="Sezioni applicazione">
+        <nav className="tab-bar" aria-label="Application sections">
             <ul>
                 {TABS.map((tab) => {
                     const isActive = tab.key === activeTab

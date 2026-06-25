@@ -1,10 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import {
-    FOCUS_SECONDS,
-    LONG_BREAK_SECONDS,
-    SESSIONS_BEFORE_LONG_BREAK,
-    SHORT_BREAK_SECONDS
-} from '../constants'
+import { SESSIONS_BEFORE_LONG_BREAK } from '../constants'
 
 export type Phase = 'focus' | 'short-break' | 'long-break'
 
@@ -21,12 +16,27 @@ function formatIsoDuration(totalSeconds: number): string {
 }
 
 export function usePomodoroTimer() {
+    const [focusMinutes, setFocusMinutes] = useState(20)
+    const [shortBreakMinutes, setShortBreakMinutes] = useState(5)
+    const [longBreakMinutes, setLongBreakMinutes] = useState(15)
+
     const [phase, setPhase] = useState<Phase>('focus')
-    const [secondsLeft, setSecondsLeft] = useState(FOCUS_SECONDS)
+    const [secondsLeft, setSecondsLeft] = useState(20 * 60)
     const [isRunning, setIsRunning] = useState(false)
     const [sessionsCompletedToday, setSessionsCompletedToday] = useState(0)
     const [focusMinutesToday, setFocusMinutesToday] = useState(0)
     const [sessionsUntilLongBreak, setSessionsUntilLongBreak] = useState(SESSIONS_BEFORE_LONG_BREAK)
+
+    useEffect(() => {
+        if (isRunning) return
+        if (phase === 'focus') {
+            setSecondsLeft(focusMinutes * 60)
+        } else if (phase === 'short-break') {
+            setSecondsLeft(shortBreakMinutes * 60)
+        } else if (phase === 'long-break') {
+            setSecondsLeft(longBreakMinutes * 60)
+        }
+    }, [focusMinutes, shortBreakMinutes, longBreakMinutes, phase, isRunning])
 
     useEffect(() => {
         if (!isRunning) return
@@ -43,19 +53,19 @@ export function usePomodoroTimer() {
 
         if (phase === 'focus') {
             setSessionsCompletedToday((count) => count + 1)
-            setFocusMinutesToday((minutes) => minutes + FOCUS_SECONDS / 60)
+            setFocusMinutesToday((minutes) => minutes + focusMinutes)
             setSessionsUntilLongBreak((count) => Math.max(count - 1, 0))
         }
 
         setIsRunning(false)
         setPhase('focus')
-        setSecondsLeft(FOCUS_SECONDS)
-    }, [secondsLeft, isRunning, phase])
+        setSecondsLeft(focusMinutes * 60)
+    }, [secondsLeft, isRunning, phase, focusMinutes])
 
     const startOrToggleFocus = useCallback(() => {
         if (phase !== 'focus') {
             setPhase('focus')
-            setSecondsLeft(FOCUS_SECONDS)
+            setSecondsLeft(focusMinutes * 60)
             setIsRunning(true)
             return
         }
@@ -65,46 +75,46 @@ export function usePomodoroTimer() {
             return
         }
 
-        setSecondsLeft((prev) => (prev === 0 ? FOCUS_SECONDS : prev))
+        setSecondsLeft((prev) => (prev === 0 ? focusMinutes * 60 : prev))
         setIsRunning(true)
-    }, [phase, isRunning])
+    }, [phase, isRunning, focusMinutes])
 
     const startBreak = useCallback(() => {
         const isLongBreakDue = sessionsUntilLongBreak === 0
-
-        setPhase(isLongBreakDue ? 'long-break' : 'short-break')
-        setSecondsLeft(isLongBreakDue ? LONG_BREAK_SECONDS : SHORT_BREAK_SECONDS)
+        const nextPhase = isLongBreakDue ? 'long-break' : 'short-break'
+        setPhase(nextPhase)
+        setSecondsLeft(isLongBreakDue ? longBreakMinutes * 60 : shortBreakMinutes * 60)
         setIsRunning(true)
 
         if (isLongBreakDue) {
             setSessionsUntilLongBreak(SESSIONS_BEFORE_LONG_BREAK)
         }
-    }, [sessionsUntilLongBreak])
+    }, [sessionsUntilLongBreak, shortBreakMinutes, longBreakMinutes])
 
     const isFocusPhase = phase === 'focus'
-    const isFreshFocus = isFocusPhase && secondsLeft === FOCUS_SECONDS
+    const isFreshFocus = isFocusPhase && secondsLeft === focusMinutes * 60
 
     const statusLabel = (() => {
-        if (phase === 'long-break') return 'Pausa lunga'
-        if (phase === 'short-break') return 'Pausa breve'
-        if (isRunning) return 'Focus'
-        if (isFreshFocus) return 'Pronto'
-        return 'In pausa'
+        if (phase === 'long-break') return 'Long Break'
+        if (phase === 'short-break') return 'Short Break'
+        if (isRunning) return 'Focusing'
+        if (isFreshFocus) return 'Ready'
+        return 'Paused'
     })()
 
     const messageLabel = (() => {
-        if (phase === 'long-break') return 'Goditi una pausa lunga, te la sei meritata.'
-        if (phase === 'short-break') return 'Stacca per qualche minuto.'
-        if (isRunning) return 'Resta concentrata, ci sei quasi.'
-        if (isFreshFocus) return 'Un blocco pulito ti sta aspettando.'
-        return 'Quando vuoi, riprendi da dove avevi lasciato.'
+        if (phase === 'long-break') return 'Time to fully recharge.'
+        if (phase === 'short-break') return 'Take a quick breath.'
+        if (isRunning) return 'Stay in the zone.'
+        if (isFreshFocus) return 'A clean slate awaits.'
+        return 'Ready when you are.'
     })()
 
     const primaryLabel = (() => {
-        if (!isFocusPhase) return 'Avvia focus'
-        if (isRunning) return 'Metti in pausa'
-        if (isFreshFocus) return 'Avvia focus'
-        return 'Riprendi'
+        if (!isFocusPhase) return 'Start Focus'
+        if (isRunning) return 'Pause'
+        if (isFreshFocus) return 'Start Focus'
+        return 'Resume'
     })()
 
     return {
@@ -120,6 +130,12 @@ export function usePomodoroTimer() {
         formattedTime: formatTime(secondsLeft),
         isoDuration: formatIsoDuration(secondsLeft),
         startOrToggleFocus,
-        startBreak
+        startBreak,
+        focusMinutes,
+        shortBreakMinutes,
+        longBreakMinutes,
+        setFocusMinutes,
+        setShortBreakMinutes,
+        setLongBreakMinutes
     }
 }

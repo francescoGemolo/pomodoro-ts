@@ -18,8 +18,8 @@ export default function TimerCard({
     onStartBreak
 }: TimerCardProps) {
     return (
-        <main className="timer-card">
-            <section className="timer-panel" aria-label="Sessione di focus">
+        <main className="timer-card animate-fade-in">
+            <section className="timer-panel" aria-label="Focus session">
                 <p className="timer-state">{statusLabel}</p>
                 <time className="timer-display" dateTime={isoDuration}>
                     {formattedTime}

@@ -127,6 +127,7 @@
     letter-spacing: -0.03em;
     line-height: 0.95;
     padding: var(--space-2) 0 var(--space-1);
+    transition: transform var(--transition-normal) var(--ease);
 }
 
 .timer-message {
@@ -134,6 +135,7 @@
     font-weight: var(--weight-semibold);
     color: var(--neutral-500);
     padding-bottom: var(--space-4);
+    white-space: nowrap;
 }
 
 .timer-actions {
@@ -152,7 +154,7 @@
     font-size: var(--font-size-lg);
     font-weight: var(--weight-semibold);
     text-align: center;
-    transition: transform var(--transition-fast) var(--ease), opacity var(--transition-fast) var(--ease);
+    transition: transform var(--transition-fast) var(--ease), opacity var(--transition-fast) var(--ease), background-color var(--transition-fast) var(--ease);
 }
 
 .btn-primary {
@@ -256,4 +258,20 @@
     font-size: var(--font-size-xs);
     font-weight: var(--weight-semibold);
     color: var(--neutral-400);
+}
+
+.animate-fade-in {
+    animation: fadeIn var(--transition-normal) var(--ease) forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
