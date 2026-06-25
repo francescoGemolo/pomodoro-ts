@@ -71,10 +71,9 @@
 }
 
 .page-header hgroup p {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-lg);
     font-weight: var(--weight-medium);
     color: var(--neutral-500);
-    letter-spacing: -0.1px;
 }
 
 .status-badge {
