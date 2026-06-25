@@ -85,7 +85,7 @@
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-full);
     border: 1px solid var(--neutral-200);
-    background: var(--neutral-100);
+    background: transparent;
     color: var(--neutral-600);
     font-size: var(--font-size-sm);
     font-weight: var(--weight-semibold);

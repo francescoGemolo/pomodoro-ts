@@ -1,5 +1,5 @@
 import { HugeiconsIcon } from '@hugeicons/react'
-import { HeartIcon, StudyLampIcon, CoffeeIcon, AppWindowIcon, PlayIcon } from '@hugeicons/core-free-icons'
+import { HeartIcon, StudyLampIcon, CoffeeIcon, Flower2Icon, PlayIcon } from '@hugeicons/core-free-icons'
 
 interface PageHeaderProps {
     statusLabel: string
@@ -11,7 +11,7 @@ export default function PageHeader({ statusLabel, phase }: PageHeaderProps) {
         if (phase === 'focus') return StudyLampIcon
         if (phase === 'short-break' || phase === 'long-break') return CoffeeIcon
         if (phase === 'paused') return PlayIcon
-        return AppWindowIcon
+        return Flower2Icon
     }
 
     return (
