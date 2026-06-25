@@ -1,3 +1,38 @@
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('/src/assets/font/SF-Pro-Rounded-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('/src/assets/font/SF-Pro-Rounded-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('/src/assets/font/SF-Pro-Rounded-Semibold.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('/src/assets/font/SF-Pro-Rounded-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SF Pro Rounded';
+    src: url('/src/assets/font/SF-Pro-Rounded-Heavy.otf') format('opentype');
+    font-weight: 800;
+    font-style: normal;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root {
@@ -34,7 +69,8 @@
     --bg: var(--neutral-50);
 
     --font-sans:
-        Inter,
+        "SF Pro Rounded",
+        "Inter",
         ui-sans-serif,
         system-ui,
         -apple-system,
