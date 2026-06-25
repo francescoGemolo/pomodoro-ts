@@ -99,7 +99,7 @@
     min-height: 0;
     overflow: hidden;
     padding: var(--space-8) var(--space-10);
-    border: 1px solid var(--neutral-100);
+    border: 1px solid var(--accent-soft);
     border-radius: var(--radius-xl);
     background: var(--surface);
 }
@@ -166,7 +166,6 @@
 }
 
 .btn-secondary {
-    background: var(--accent-soft);
     color: var(--accent-strong);
     border: 1px solid var(--accent-border);
 }
@@ -191,7 +190,7 @@
     flex-direction: column;
     gap: var(--space-2);
     padding: var(--space-5) var(--space-5) var(--space-4);
-    border: 1px solid var(--neutral-100);
+    border: 1px solid var(--accent-soft);
     border-radius: var(--radius-lg);
     background: var(--surface);
     transition: background-color var(--transition-fast) var(--ease);

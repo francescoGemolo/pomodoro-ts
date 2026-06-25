@@ -10,8 +10,8 @@ export default function PageHeader({ statusLabel }: PageHeaderProps) {
         <header className="page-header">
             <hgroup>
                 <h1>
-                    <HugeiconsIcon icon={HeartIcon} size={22} strokeWidth={2} />
                     Ludi's Focus
+                    <HugeiconsIcon icon={HeartIcon} size={22} strokeWidth={2} />
                 </h1>
                 <p>A clean block is waiting for you.</p>
             </hgroup>

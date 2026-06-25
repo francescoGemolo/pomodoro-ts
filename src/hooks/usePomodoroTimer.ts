@@ -95,7 +95,7 @@ export function usePomodoroTimer() {
     const messageLabel = (() => {
         if (phase === 'long-break') return 'Goditi una pausa lunga, te la sei meritata.'
         if (phase === 'short-break') return 'Stacca per qualche minuto.'
-        if (isRunning) return 'Resta concentrato, ci sei quasi.'
+        if (isRunning) return 'Resta concentrata, ci sei quasi.'
         if (isFreshFocus) return 'Un blocco pulito ti sta aspettando.'
         return 'Quando vuoi, riprendi da dove avevi lasciato.'
     })()

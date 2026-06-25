@@ -25,9 +25,9 @@
     --fuchsia-900: #701a75;
     --fuchsia-950: #4a044e;
 
-    --accent: var(--fuchsia-600);
-    --accent-strong: var(--fuchsia-700);
-    --accent-soft: var(--fuchsia-50);
+    --accent: var(--fuchsia-400);
+    --accent-strong: var(--fuchsia-500);
+    --accent-soft: var(--fuchsia-100);
     --accent-border: var(--fuchsia-200);
 
     --surface: #ffffff;
