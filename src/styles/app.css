@@ -253,6 +253,9 @@
     margin-bottom: calc(var(--space-8) * -1);
     overflow: hidden;
     align-self: end;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
 .cat-peek {
@@ -416,18 +419,18 @@
 
     .cat-container {
         width: calc(100% + var(--space-4) * 2);
-        height: 140px;
+        height: 180px;
         margin-left: calc(var(--space-4) * -1);
         margin-right: calc(var(--space-4) * -1);
         margin-bottom: calc(var(--space-4) * -1);
     }
 
     .cat-peek {
-        bottom: -50px;
+        bottom: -30px;
     }
 
     .cat-peek svg,
     .cat-peek>div {
-        max-width: 200px;
+        max-width: 180px;
     }
 }
