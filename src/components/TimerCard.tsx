@@ -1,3 +1,6 @@
+import { Player } from "@lottiefiles/react-lottie-player";
+import catAnimation from "../assets/animations/catAnimation.json";
+
 interface TimerCardProps {
     statusLabel: string
     formattedTime: string
@@ -23,27 +26,59 @@ export default function TimerCard({
 }: TimerCardProps) {
     return (
         <main className={`timer-card card-state-${phase} animate-fade-in`}>
-            <section className="timer-panel" aria-label="Focus session">
-                <p className="timer-state">{statusLabel}</p>
-                <time className="timer-display" dateTime={isoDuration}>
-                    {formattedTime}
-                </time>
-                <p className="timer-message">{messageLabel}</p>
-                <div className="timer-actions">
-                    <button type="button" className="btn-primary" onClick={onPrimaryAction}>
-                        {primaryLabel}
-                    </button>
-                    {phase === 'focus' && (
-                        <button type="button" className="btn-secondary btn-break" onClick={onStartBreak}>
-                            Skip to Break
+            <section className="timer-layout">
+
+                <div className="timer-panel">
+                    <p className="timer-state">{statusLabel}</p>
+
+                    <time className="timer-display" dateTime={isoDuration}>
+                        {formattedTime}
+                    </time>
+
+                    <p className="timer-message">
+                        {messageLabel}
+                    </p>
+
+                    <div className="timer-actions">
+                        <button
+                            type="button"
+                            className="btn-primary"
+                            onClick={onPrimaryAction}
+                        >
+                            {primaryLabel}
                         </button>
-                    )}
-                    {phase !== 'idle' && (
-                        <button type="button" className="btn-secondary btn-reset" onClick={onReset}>
-                            Reset Session
-                        </button>
-                    )}
+
+                        {phase === 'focus' && (
+                            <button
+                                type="button"
+                                className="btn-secondary btn-break"
+                                onClick={onStartBreak}
+                            >
+                                Skip to Break
+                            </button>
+                        )}
+
+                        {phase !== 'idle' && (
+                            <button
+                                type="button"
+                                className="btn-secondary btn-reset"
+                                onClick={onReset}
+                            >
+                                Reset Session
+                            </button>
+                        )}
+                    </div>
                 </div>
+
+                <div className="cat-container">
+                    <Player
+                        src={catAnimation}
+                        loop
+                        autoplay
+                        style={{ height: '300px', width: '300px' }} // Regola le dimensioni se necessario
+                    />
+                </div>
+
             </section>
         </main>
     )
