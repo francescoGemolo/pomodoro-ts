@@ -12,10 +12,17 @@
   <link rel="apple-touch-icon" href="/pomodoro-ts/apple-touch-icon.png">
   <link rel="manifest" href="/pomodoro-ts/manifest.webmanifest">
   <title>Pomodoro</title>
-  <script type="module" crossorigin src="/pomodoro-ts/assets/index-DBl0X-Ev.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme')
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+      document.documentElement.setAttribute('data-theme', t)
+    })()
+  </script>
+  <script type="module" crossorigin src="/pomodoro-ts/assets/index-e564oDJC.js"></script>
   <link rel="modulepreload" crossorigin href="/pomodoro-ts/assets/rolldown-runtime-Bh1tDfsg.js">
-  <link rel="modulepreload" crossorigin href="/pomodoro-ts/assets/vendor-BdMrOm8B.js">
-  <link rel="stylesheet" crossorigin href="/pomodoro-ts/assets/index-BR8-so3r.css">
+  <link rel="modulepreload" crossorigin href="/pomodoro-ts/assets/vendor-Dj0WuZLi.js">
+  <link rel="stylesheet" crossorigin href="/pomodoro-ts/assets/index-D4Z-mMBw.css">
 </head>
 
 <body>
