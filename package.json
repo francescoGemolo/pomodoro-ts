@@ -1,7 +1,7 @@
 {
   "name": "pomodoro",
   "private": true,
-  "homepage": "https://francescoGemolo.github.io/pomodoro-ts/",
+  "homepage": "https://francescogemolo.github.io/pomodoro-ts/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
