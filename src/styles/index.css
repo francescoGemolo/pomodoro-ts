@@ -60,6 +60,14 @@
     --break-soft: #e6fbf4;
     --break-border: #bdf4df;
 
+    --warning-strong: #a16207;
+    --warning-soft: #fef9c3;
+    --warning-border: #fde047;
+
+    --danger-strong: #dc2626;
+    --danger-soft: #fee2e2;
+    --danger-border: #fecaca;
+
     --surface: #ffffff;
     --bg: var(--neutral-50);
 
@@ -185,4 +193,37 @@ button {
 button:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
+}
+
+:root[data-theme="dark"] {
+    --surface: #0f0f10;
+    --bg: var(--neutral-950);
+
+    --neutral-50: #171717;
+    --neutral-100: #262626;
+    --neutral-200: #404040;
+    --neutral-300: #525252;
+    --neutral-400: #737373;
+    --neutral-500: #a3a3a3;
+    --neutral-600: #d4d4d4;
+    --neutral-700: #e5e5e5;
+    --neutral-800: #f5f5f5;
+    --neutral-900: #fafafa;
+    --neutral-950: #ffffff;
+
+    --accent-soft: rgba(217, 70, 239, 0.15);
+    --accent-border: rgba(217, 70, 239, 0.35);
+
+    --break-soft: rgba(13, 148, 136, 0.12);
+    --break-border: rgba(13, 148, 136, 0.35);
+
+    --warning-soft: rgba(253, 224, 71, 0.15);
+    --warning-border: rgba(253, 224, 71, 0.35);
+
+    --danger-soft: rgba(220, 38, 38, 0.15);
+    --danger-border: rgba(220, 38, 38, 0.35);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .35);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, .45);
+    --shadow-lg: 0 12px 30px rgba(0, 0, 0, .55);
 }

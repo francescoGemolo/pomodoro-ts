@@ -100,9 +100,9 @@
 }
 
 .status-badge.state-paused {
-    border-color: #fde047;
-    background: #fef9c3;
-    color: #a16207;
+    border-color: var(--warning-border);
+    background: var(--warning-soft);
+    color: var(--warning-strong);
 }
 
 .timer-card {
@@ -110,6 +110,7 @@
     --card-pad-y: var(--space-8);
 
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -132,6 +133,32 @@
 .timer-card.card-state-long-break {
     border-color: #e6fbf4;
     box-shadow: 0 10px 30px -10px #e6fbf4;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    color: var(--neutral-400);
+    transition: background-color var(--transition-fast) var(--ease), color var(--transition-fast) var(--ease);
+    z-index: 1;
+    border: 1px solid var(--neutral-100);
+    border-radius: var(--radius-full);
+}
+
+.theme-toggle:hover {
+    background: var(--neutral-100);
+    color: var(--neutral-950);
+}
+
+.theme-toggle:active {
+    transform: scale(0.92);
 }
 
 .timer-layout {
@@ -231,9 +258,9 @@
 }
 
 .btn-reset:hover {
-    background: #fee2e2;
-    color: #dc2626;
-    border-color: #fecaca;
+    background: var(--danger-soft);
+    color: var(--danger-strong);
+    border-color: var(--danger-border);
 }
 
 .btn-primary:active,
@@ -471,7 +498,7 @@
 }
 
 .stats-reset:hover {
-    color: #dc2626;
+    color: var(--danger-strong);
 }
 
 .settings-list {
@@ -601,6 +628,11 @@
     .timer-card {
         --card-pad-x: var(--space-4);
         --card-pad-y: var(--space-6);
+    }
+
+    .theme-toggle {
+        top: var(--space-3);
+        right: var(--space-3);
     }
 
     .timer-layout {

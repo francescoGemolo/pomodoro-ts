@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { Player } from '@lottiefiles/react-lottie-player'
 import catAnimation from '../assets/animations/catAnimation.json'
+import ThemeToggle from './ThemeToggle'
 
 interface TimerCardProps {
     statusLabel: string
@@ -42,6 +43,8 @@ export default function TimerCard({
 
     return (
         <main className={`timer-card card-state-${phase} animate-fade-in`}>
+            <ThemeToggle />
+
             <section className="timer-layout">
                 <div className="timer-panel">
                     <p className="timer-state">{statusLabel}</p>
