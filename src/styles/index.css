@@ -47,17 +47,10 @@
     --neutral-900: #171717;
     --neutral-950: #0a0a0a;
 
-    --fuchsia-50: #fdf4ff;
     --fuchsia-100: #fae8ff;
     --fuchsia-200: #f5d0fe;
-    --fuchsia-300: #f0abfc;
     --fuchsia-400: #e879f9;
     --fuchsia-500: #d946ef;
-    --fuchsia-600: #c026d3;
-    --fuchsia-700: #a21caf;
-    --fuchsia-800: #86198f;
-    --fuchsia-900: #701a75;
-    --fuchsia-950: #4a044e;
 
     --accent: var(--fuchsia-400);
     --accent-strong: var(--fuchsia-500);
@@ -67,6 +60,14 @@
     --break-strong: #0d9488;
     --break-soft: #e6fbf4;
     --break-border: #bdf4df;
+
+    --warn-strong: #a16207;
+    --warn-soft: #fef9c3;
+    --warn-border: #fde047;
+
+    --danger-strong: #dc2626;
+    --danger-soft: #fee2e2;
+    --danger-border: #fecaca;
 
     --surface: #ffffff;
     --bg: var(--neutral-50);
@@ -124,6 +125,44 @@
     --transition-normal: 250ms;
 }
 
+:root[data-theme="dark"] {
+    --neutral-50: #15110f;
+    --neutral-100: #1c1714;
+    --neutral-200: #2a2320;
+    --neutral-300: #3a312c;
+    --neutral-400: #8d8076;
+    --neutral-500: #a89c91;
+    --neutral-600: #c2b7ac;
+    --neutral-700: #d6cdc3;
+    --neutral-800: #e8e2da;
+    --neutral-900: #f2ede6;
+    --neutral-950: #f7f3ee;
+
+    --accent: #c98bc4;
+    --accent-strong: #e3a6da;
+    --accent-soft: #2c2129;
+    --accent-border: #3c2c37;
+
+    --break-strong: #5fc9b6;
+    --break-soft: #152924;
+    --break-border: #1f3a33;
+
+    --warn-strong: #e3b95f;
+    --warn-soft: #2b2210;
+    --warn-border: #4a3a16;
+
+    --danger-strong: #e88a7d;
+    --danger-soft: #36201d;
+    --danger-border: #4a2c27;
+
+    --surface: #1e1815;
+    --bg: var(--neutral-50);
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, .5);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, .55);
+    --shadow-lg: 0 14px 34px rgba(0, 0, 0, .6);
+}
+
 *,
 *::before,
 *::after {
@@ -146,9 +185,10 @@ body {
     padding: 0;
     overflow: hidden;
     font-family: var(--font-sans);
-    background: var(--surface);
+    background: var(--bg);
     color: var(--neutral-950);
     -webkit-tap-highlight-color: transparent;
+    transition: background-color var(--transition-normal) var(--ease), color var(--transition-normal) var(--ease);
 }
 
 #root {

@@ -1,0 +1,47 @@
+import { useCallback, useEffect, useState } from 'react'
+
+export type ThemeMode = 'light' | 'dark'
+
+const THEME_STORAGE_KEY = 'ludis-focus-theme'
+const LIGHT_STATUS_BAR_COLOR = '#ffffff'
+const DARK_STATUS_BAR_COLOR = '#1e1815'
+
+function getInitialTheme(): ThemeMode {
+    try {
+        const stored = window.localStorage.getItem(THEME_STORAGE_KEY)
+        if (stored === 'light' || stored === 'dark') return stored
+    } catch {
+        // Storage may be unavailable (e.g. private browsing); fall back to system preference.
+    }
+
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark'
+    }
+
+    return 'light'
+}
+
+export function useTheme() {
+    const [theme, setTheme] = useState<ThemeMode>(getInitialTheme)
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme)
+
+        const statusBarMeta = document.querySelector('meta[name="theme-color"]')
+        if (statusBarMeta) {
+            statusBarMeta.setAttribute('content', theme === 'dark' ? DARK_STATUS_BAR_COLOR : LIGHT_STATUS_BAR_COLOR)
+        }
+
+        try {
+            window.localStorage.setItem(THEME_STORAGE_KEY, theme)
+        } catch {
+            // Storage may be unavailable (e.g. private browsing); preference simply won't persist.
+        }
+    }, [theme])
+
+    const toggleTheme = useCallback(() => {
+        setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
+    }, [])
+
+    return { theme, toggleTheme }
+}
