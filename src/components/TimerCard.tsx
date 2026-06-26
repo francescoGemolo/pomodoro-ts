@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react'
-import { Player } from '@lottiefiles/react-lottie-player'
+import { useEffect } from 'react'
+import { useLottie } from 'lottie-react'
 import catAnimation from '../assets/animations/catAnimation.json'
 
 interface TimerCardProps {
@@ -25,45 +25,47 @@ export default function TimerCard({
     onStartBreak,
     onReset
 }: TimerCardProps) {
-    const catPlayerRef = useRef<Player>(null)
-
     const canSkipToBreak = phase === 'focus'
     const canReset = phase !== 'idle'
 
-    useEffect(() => {
-        if (!catPlayerRef.current) return
+    const { View, play, pause } = useLottie({
+        animationData: catAnimation,
+        loop: true,
+        autoplay: false,
+    })
 
+    useEffect(() => {
         if (phase === 'focus') {
-            catPlayerRef.current.play()
+            play()
         } else {
-            catPlayerRef.current.pause()
+            pause()
         }
-    }, [phase])
+    }, [phase, play, pause])
 
     return (
-        <main className={`timer-card card-state-${phase} animate-fade-in`}>
+        <main className={ `timer-card card-state-${phase} animate-fade-in` }>
             <section className="timer-layout">
                 <div className="timer-panel">
-                    <p className="timer-state">{statusLabel}</p>
+                    <p className="timer-state">{ statusLabel }</p>
 
-                    <time className="timer-display" dateTime={isoDuration}>
-                        {formattedTime}
+                    <time className="timer-display" dateTime={ isoDuration }>
+                        { formattedTime }
                     </time>
 
-                    <p className="timer-message">{messageLabel}</p>
+                    <p className="timer-message">{ messageLabel }</p>
 
                     <div className="timer-actions">
-                        <button type="button" className="btn-primary" onClick={onPrimaryAction}>
-                            {primaryLabel}
+                        <button type="button" className="btn-primary" onClick={ onPrimaryAction }>
+                            { primaryLabel }
                         </button>
 
                         <button
                             type="button"
-                            className={`btn-secondary btn-reset${canReset ? '' : ' btn-slot-hidden'}`}
-                            onClick={onReset}
-                            disabled={!canReset}
-                            aria-hidden={!canReset}
-                            tabIndex={canReset ? 0 : -1}
+                            className={ `btn-secondary btn-reset${canReset ? '' : ' btn-slot-hidden'}` }
+                            onClick={ onReset }
+                            disabled={ !canReset }
+                            aria-hidden={ !canReset }
+                            tabIndex={ canReset ? 0 : -1 }
                         >
                             Reset Session
                         </button>
@@ -71,11 +73,11 @@ export default function TimerCard({
 
                     <button
                         type="button"
-                        className={`btn-break-link${canSkipToBreak ? '' : ' btn-slot-hidden'}`}
-                        onClick={onStartBreak}
-                        disabled={!canSkipToBreak}
-                        aria-hidden={!canSkipToBreak}
-                        tabIndex={canSkipToBreak ? 0 : -1}
+                        className={ `btn-break-link${canSkipToBreak ? '' : ' btn-slot-hidden'}` }
+                        onClick={ onStartBreak }
+                        disabled={ !canSkipToBreak }
+                        aria-hidden={ !canSkipToBreak }
+                        tabIndex={ canSkipToBreak ? 0 : -1 }
                     >
                         Take a Break
                     </button>
@@ -83,7 +85,7 @@ export default function TimerCard({
 
                 <div className="cat-container">
                     <div className="cat-peek">
-                        <Player ref={catPlayerRef} src={catAnimation} loop />
+                        { View }
                     </div>
                 </div>
             </section>

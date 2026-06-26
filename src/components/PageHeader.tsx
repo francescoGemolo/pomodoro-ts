@@ -20,9 +20,9 @@ export default function PageHeader({ statusLabel, phase }: PageHeaderProps) {
                 <h1>Ludi's Focus</h1>
                 <p>Made by Francesco with love!</p>
             </hgroup>
-            <p className={`status-badge state-${phase}`}>
-                <HugeiconsIcon icon={getStatusIcon()} size={16} strokeWidth={2} />
-                <span>{statusLabel}</span>
+            <p className={ `status-badge state-${phase}` }>
+                <HugeiconsIcon icon={ getStatusIcon() } size={ 16 } strokeWidth={ 2 } />
+                <span>{ statusLabel }</span>
             </p>
         </header>
     )

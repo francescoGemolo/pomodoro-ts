@@ -17,22 +17,22 @@ export default function TabBar({ activeTab, onChange }: TabBarProps) {
     return (
         <nav className="tab-bar" aria-label="Application sections">
             <ul>
-                {TABS.map((tab) => {
+                { TABS.map((tab) => {
                     const isActive = tab.key === activeTab
                     return (
-                        <li key={tab.key}>
+                        <li key={ tab.key }>
                             <button
                                 type="button"
-                                className={`tab-item${isActive ? ' is-active' : ''}`}
-                                aria-current={isActive ? 'page' : undefined}
-                                onClick={() => onChange(tab.key)}
+                                className={ `tab-item${isActive ? ' is-active' : ''}` }
+                                aria-current={ isActive ? 'page' : undefined }
+                                onClick={ () => onChange(tab.key) }
                             >
-                                <HugeiconsIcon icon={TAB_ICONS[tab.key]} size={18} strokeWidth={2} />
-                                <span>{tab.label}</span>
+                                <HugeiconsIcon icon={ TAB_ICONS[tab.key] } size={ 18 } strokeWidth={ 2 } />
+                                <span>{ tab.label }</span>
                             </button>
                         </li>
                     )
-                })}
+                }) }
             </ul>
         </nav>
     )
