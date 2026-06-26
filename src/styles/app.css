@@ -254,7 +254,7 @@
     color: var(--break-strong);
     text-align: left;
     transition: color var(--transition-fast) var(--ease);
-    border: 1px dashed var(--break-border);
+    border: 2px dashed var(--break-border);
     padding: var(--space-2) var(--space-4);
     border-radius: var(--radius-full);
     white-space: nowrap;
