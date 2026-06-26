@@ -31,5 +31,3 @@ C'è un comportamento strano:
 Vorrei che investigassi la causa di questa differenza e correggessi il problema nella versione Safari.
 
 In ogni caso, anche su iPhone il gatto dovrebbe salire di più durante l'animazione: attualmente sembra troppo schiacciato verso il basso.
-
-## Deploy
