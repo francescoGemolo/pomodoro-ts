@@ -10,18 +10,16 @@ export default function HomeSummary({
     sessionsUntilLongBreak
 }: HomeSummaryProps) {
     return (
-        <footer className="stats-grid home-summary">
-            <article className="stat-card">
-                <p className="stat-label">Today</p>
-                <p className="stat-value">{focusMinutesToday}m</p>
-                <p className="stat-sub">{sessionsCompletedToday} sessions</p>
-            </article>
-
-            <article className="stat-card">
-                <p className="stat-label">Current cycle</p>
-                <p className="stat-value">{sessionsUntilLongBreak}</p>
-                <p className="stat-sub">until long break</p>
-            </article>
+        <footer className="home-summary">
+            <div className="home-stat">
+                <span className="home-stat-value">{focusMinutesToday}m</span>
+                <span className="home-stat-label">{sessionsCompletedToday} sessions today</span>
+            </div>
+            <div className="home-stat-sep" />
+            <div className="home-stat">
+                <span className="home-stat-value">{sessionsUntilLongBreak}</span>
+                <span className="home-stat-label">until long break</span>
+            </div>
         </footer>
     )
 }

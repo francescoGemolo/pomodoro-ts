@@ -59,17 +59,6 @@ export default function TimerCard({
 
                         <button
                             type="button"
-                            className={`btn-secondary btn-break${canSkipToBreak ? '' : ' btn-slot-hidden'}`}
-                            onClick={onStartBreak}
-                            disabled={!canSkipToBreak}
-                            aria-hidden={!canSkipToBreak}
-                            tabIndex={canSkipToBreak ? 0 : -1}
-                        >
-                            Skip to Break
-                        </button>
-
-                        <button
-                            type="button"
                             className={`btn-secondary btn-reset${canReset ? '' : ' btn-slot-hidden'}`}
                             onClick={onReset}
                             disabled={!canReset}
@@ -79,6 +68,17 @@ export default function TimerCard({
                             Reset Session
                         </button>
                     </div>
+
+                    <button
+                        type="button"
+                        className={`btn-break-link${canSkipToBreak ? '' : ' btn-slot-hidden'}`}
+                        onClick={onStartBreak}
+                        disabled={!canSkipToBreak}
+                        aria-hidden={!canSkipToBreak}
+                        tabIndex={canSkipToBreak ? 0 : -1}
+                    >
+                        Take a Break
+                    </button>
                 </div>
 
                 <div className="cat-container">
