@@ -34,3 +34,6 @@ tsconfig.node.json
 vite.config.ts
 repopack.config.json
 README.md
+src/assets/animations/catAnimation.json
+public/favicon.svg
+repopack-output.xml
