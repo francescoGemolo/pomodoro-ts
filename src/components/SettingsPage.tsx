@@ -1,3 +1,54 @@
+interface MinuteStepperProps {
+    label: string
+    value: number
+    max: number
+    onChange: (minutes: number) => void
+}
+
+function clampMinutes(value: number, max: number): number {
+    if (Number.isNaN(value)) return 1
+    return Math.min(Math.max(value, 1), max)
+}
+
+function MinuteStepper({ label, value, max, onChange }: MinuteStepperProps) {
+    return (
+        <div className="settings-row">
+            <span>{label}</span>
+            <div className="settings-stepper">
+                <button
+                    type="button"
+                    className="stepper-btn"
+                    onClick={() => onChange(clampMinutes(value - 1, max))}
+                    disabled={value <= 1}
+                    aria-label={`Decrease ${label}`}
+                >
+                    −
+                </button>
+
+                <input
+                    type="number"
+                    min={1}
+                    max={max}
+                    className="settings-input"
+                    value={value}
+                    onChange={(e) => onChange(clampMinutes(parseInt(e.target.value, 10), max))}
+                    aria-label={label}
+                />
+
+                <button
+                    type="button"
+                    className="stepper-btn"
+                    onClick={() => onChange(clampMinutes(value + 1, max))}
+                    disabled={value >= max}
+                    aria-label={`Increase ${label}`}
+                >
+                    +
+                </button>
+            </div>
+        </div>
+    )
+}
+
 interface SettingsPageProps {
     focusMinutes: number
     shortBreakMinutes: number
@@ -5,12 +56,6 @@ interface SettingsPageProps {
     onFocusMinutesChange: (minutes: number) => void
     onShortBreakMinutesChange: (minutes: number) => void
     onLongBreakMinutesChange: (minutes: number) => void
-}
-
-function clampMinutes(value: string, max: number): number {
-    const parsed = parseInt(value, 10)
-    if (Number.isNaN(parsed)) return 1
-    return Math.min(Math.max(parsed, 1), max)
 }
 
 export default function SettingsPage({
@@ -27,41 +72,9 @@ export default function SettingsPage({
                 <p className="timer-state">Settings</p>
 
                 <div className="settings-list">
-                    <label className="settings-row">
-                        <span>Focus Time (min)</span>
-                        <input
-                            type="number"
-                            min="1"
-                            max="60"
-                            className="settings-input"
-                            value={focusMinutes}
-                            onChange={(e) => onFocusMinutesChange(clampMinutes(e.target.value, 60))}
-                        />
-                    </label>
-
-                    <label className="settings-row">
-                        <span>Short Break (min)</span>
-                        <input
-                            type="number"
-                            min="1"
-                            max="30"
-                            className="settings-input"
-                            value={shortBreakMinutes}
-                            onChange={(e) => onShortBreakMinutesChange(clampMinutes(e.target.value, 30))}
-                        />
-                    </label>
-
-                    <label className="settings-row">
-                        <span>Long Break (min)</span>
-                        <input
-                            type="number"
-                            min="1"
-                            max="60"
-                            className="settings-input"
-                            value={longBreakMinutes}
-                            onChange={(e) => onLongBreakMinutesChange(clampMinutes(e.target.value, 60))}
-                        />
-                    </label>
+                    <MinuteStepper label="Focus Time (min)" value={focusMinutes} max={60} onChange={onFocusMinutesChange} />
+                    <MinuteStepper label="Short Break (min)" value={shortBreakMinutes} max={30} onChange={onShortBreakMinutesChange} />
+                    <MinuteStepper label="Long Break (min)" value={longBreakMinutes} max={60} onChange={onLongBreakMinutesChange} />
                 </div>
             </section>
         </main>

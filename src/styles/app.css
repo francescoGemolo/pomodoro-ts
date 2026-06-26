@@ -117,7 +117,7 @@
     min-height: 0;
     overflow: hidden;
     padding: var(--card-pad-y) var(--card-pad-x);
-    border: 1px solid var(--neutral-200);
+    border: 1px solid var(--accent-soft);
     border-radius: var(--radius-xl);
     background: var(--surface);
     transition: transform var(--transition-normal) var(--ease), border-color var(--transition-normal) var(--ease), box-shadow var(--transition-normal) var(--ease);
@@ -275,14 +275,14 @@
 }
 
 .cat-peek svg,
-.cat-peek>div {
+.cat-peek > div {
     width: 100%;
     height: auto;
 }
 
-.home-summary {
+.stats-grid.home-summary {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 28rem;
+    max-width: 30rem;
     justify-self: center;
 }
 
@@ -413,14 +413,62 @@
     font-weight: var(--weight-semibold);
 }
 
-.settings-input {
-    width: 4.5rem;
-    padding: var(--space-2);
-    border-radius: var(--radius-sm);
+.settings-stepper {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1);
     border: 1px solid var(--accent-border);
+    border-radius: var(--radius-full);
+    background: var(--accent-soft);
+}
+
+.stepper-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-xl);
+    font-weight: var(--weight-bold);
+    color: var(--accent-strong);
+    transition: background-color var(--transition-fast) var(--ease), opacity var(--transition-fast) var(--ease);
+}
+
+.stepper-btn:hover:not(:disabled) {
+    background: var(--surface);
+}
+
+.stepper-btn:active:not(:disabled) {
+    transform: scale(0.92);
+}
+
+.stepper-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.settings-input {
+    width: 2.75rem;
+    background: transparent;
+    border: none;
     text-align: center;
     font-family: inherit;
+    font-size: var(--font-size-lg);
     font-weight: var(--weight-bold);
+    color: var(--neutral-950);
+    -moz-appearance: textfield;
+}
+
+.settings-input:focus {
+    outline: none;
+}
+
+.settings-input::-webkit-outer-spin-button,
+.settings-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .animate-fade-in {
