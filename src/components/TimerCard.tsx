@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
-import { Player } from "@lottiefiles/react-lottie-player";
-import catAnimation from "../assets/animations/catAnimation.json";
+import { useEffect, useRef } from 'react'
+import { Player } from '@lottiefiles/react-lottie-player'
+import catAnimation from '../assets/animations/catAnimation.json'
 
 interface TimerCardProps {
     statusLabel: string
@@ -25,22 +25,24 @@ export default function TimerCard({
     onStartBreak,
     onReset
 }: TimerCardProps) {
-    const catPlayerRef = useRef<Player>(null);
+    const catPlayerRef = useRef<Player>(null)
+
+    const canSkipToBreak = phase === 'focus'
+    const canReset = phase !== 'idle'
 
     useEffect(() => {
-        if (!catPlayerRef.current) return;
+        if (!catPlayerRef.current) return
 
         if (phase === 'focus') {
-            catPlayerRef.current.play();
+            catPlayerRef.current.play()
         } else {
-            catPlayerRef.current.pause();
+            catPlayerRef.current.pause()
         }
-    }, [phase]);
+    }, [phase])
 
     return (
         <main className={`timer-card card-state-${phase} animate-fade-in`}>
             <section className="timer-layout">
-
                 <div className="timer-panel">
                     <p className="timer-state">{statusLabel}</p>
 
@@ -48,52 +50,42 @@ export default function TimerCard({
                         {formattedTime}
                     </time>
 
-                    <p className="timer-message">
-                        {messageLabel}
-                    </p>
+                    <p className="timer-message">{messageLabel}</p>
 
                     <div className="timer-actions">
-                        <button
-                            type="button"
-                            className="btn-primary"
-                            onClick={onPrimaryAction}
-                        >
+                        <button type="button" className="btn-primary" onClick={onPrimaryAction}>
                             {primaryLabel}
                         </button>
 
-                        {phase === 'focus' && (
-                            <button
-                                type="button"
-                                className="btn-secondary btn-break"
-                                onClick={onStartBreak}
-                            >
-                                Skip to Break
-                            </button>
-                        )}
+                        <button
+                            type="button"
+                            className={`btn-secondary btn-break${canSkipToBreak ? '' : ' btn-slot-hidden'}`}
+                            onClick={onStartBreak}
+                            disabled={!canSkipToBreak}
+                            aria-hidden={!canSkipToBreak}
+                            tabIndex={canSkipToBreak ? 0 : -1}
+                        >
+                            Skip to Break
+                        </button>
 
-                        {phase !== 'idle' && (
-                            <button
-                                type="button"
-                                className="btn-secondary btn-reset"
-                                onClick={onReset}
-                            >
-                                Reset Session
-                            </button>
-                        )}
+                        <button
+                            type="button"
+                            className={`btn-secondary btn-reset${canReset ? '' : ' btn-slot-hidden'}`}
+                            onClick={onReset}
+                            disabled={!canReset}
+                            aria-hidden={!canReset}
+                            tabIndex={canReset ? 0 : -1}
+                        >
+                            Reset Session
+                        </button>
                     </div>
                 </div>
 
                 <div className="cat-container">
                     <div className="cat-peek">
-                        <Player
-                            ref={catPlayerRef}
-                            src={catAnimation}
-                            loop
-                            style={{ height: '300px', width: '300px' }}
-                        />
+                        <Player ref={catPlayerRef} src={catAnimation} loop />
                     </div>
                 </div>
-
             </section>
         </main>
     )

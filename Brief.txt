@@ -1,1 +1,21 @@
-npm install --save @lottiefiles/react-lottie-player
+# Revisione e refactoring dell'app Pomodoro
+
+Analizza il progetto partendo dal file `.xml` e fai una revisione completa del codice. L'obiettivo è ottenere una codebase più pulita, semplice e mantenibile. Elimina codice morto, duplicazioni, logiche inutili e qualsiasi elemento superfluo. Non lasciare commenti nel codice finale.
+
+Individua e correggi eventuali incongruenze, bug o implementazioni poco coerenti, mantenendo il comportamento dell'app ma rendendola più robusta.
+
+L'app è una Pomodoro ottimizzata per iOS e iPadOS ed è progettata come **One Page**, quindi il layout non deve mai richiedere lo scroll.
+
+## Problema principale
+
+Attualmente il layout è corretto su schermi grandi, ma su iPhone e iPad si rompe quando viene avviato il timer. Nel momento in cui la schermata si espande e compare il terzo pulsante, il contenuto non riesce più a rimanere all'interno del container e l'animazione del gatto viene tagliata.
+
+Trova una soluzione strutturale affinché la comparsa di nuovi elementi non modifichi la posizione degli altri componenti. Il layout deve rimanere stabile durante tutte le transizioni e funzionare correttamente su qualsiasi dimensione di schermo.
+
+Controlla anche tutte le media query: sembrano essere state aggiunte senza una logica precisa. Semplificale o riscrivile se necessario. Se l'animazione del gatto crea problemi su iPhone, è preferibile utilizzare una versione più semplice piuttosto che mantenere un layout instabile.
+
+## UX
+
+La gestione delle statistiche è poco coerente. Mi piace avere un riepilogo nella schermata principale, ma la pagina dedicata alle statistiche dovrebbe offrire informazioni più approfondite e funzionalità aggiuntive. Se entrambe mostrano praticamente gli stessi dati, la schermata dedicata perde di utilità.
+
+Mantieni il codice il più semplice possibile, elimina la complessità non necessaria e consegna un progetto pulito, coerente e completamente funzionante.

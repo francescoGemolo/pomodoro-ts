@@ -1,6 +1,14 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { getDateKey, getWeekdayLabel } from '../utils/dateKey'
 
 export type Phase = 'idle' | 'focus' | 'short-break' | 'long-break' | 'paused'
+
+type DayStats = { minutes: number; sessions: number }
+type History = Record<string, DayStats>
+
+const HISTORY_STORAGE_KEY = 'ludis-focus-history'
+const WEEK_LENGTH = 7
+const STREAK_LOOKBACK_DAYS = 365
 
 function formatTime(totalSeconds: number): string {
     const minutes = Math.floor(totalSeconds / 60)
@@ -14,6 +22,23 @@ function formatIsoDuration(totalSeconds: number): string {
     return `PT${minutes}M${seconds}S`
 }
 
+function loadHistory(): History {
+    try {
+        const raw = window.localStorage.getItem(HISTORY_STORAGE_KEY)
+        return raw ? (JSON.parse(raw) as History) : {}
+    } catch {
+        return {}
+    }
+}
+
+function saveHistory(history: History) {
+    try {
+        window.localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history))
+    } catch {
+        // Storage may be unavailable (e.g. private browsing); stats simply won't persist.
+    }
+}
+
 export function usePomodoroTimer() {
     const [focusMinutes, setFocusMinutes] = useState(25)
     const [shortBreakMinutes, setShortBreakMinutes] = useState(5)
@@ -25,8 +50,11 @@ export function usePomodoroTimer() {
     const [isRunning, setIsRunning] = useState(false)
     const [cyclesCompleted, setCyclesCompleted] = useState(0)
 
-    const [sessionsCompletedToday, setSessionsCompletedToday] = useState(0)
-    const [focusMinutesToday, setFocusMinutesToday] = useState(0)
+    const [history, setHistory] = useState<History>(() => loadHistory())
+
+    useEffect(() => {
+        saveHistory(history)
+    }, [history])
 
     useEffect(() => {
         if (phase === 'idle') {
@@ -50,14 +78,27 @@ export function usePomodoroTimer() {
         return () => window.clearInterval(intervalId)
     }, [isRunning])
 
+    const recordCompletedFocusSession = useCallback(() => {
+        const todayKey = getDateKey(new Date())
+        setHistory((prev) => {
+            const today = prev[todayKey] ?? { minutes: 0, sessions: 0 }
+            return {
+                ...prev,
+                [todayKey]: {
+                    minutes: today.minutes + focusMinutes,
+                    sessions: today.sessions + 1
+                }
+            }
+        })
+    }, [focusMinutes])
+
     useEffect(() => {
         if (secondsLeft !== 0 || isRunning || phase === 'idle' || phase === 'paused') return
 
         if (phase === 'focus') {
             const nextCycles = cyclesCompleted + 1
             setCyclesCompleted(nextCycles)
-            setSessionsCompletedToday((prev) => prev + 1)
-            setFocusMinutesToday((prev) => prev + focusMinutes)
+            recordCompletedFocusSession()
 
             if (nextCycles >= 4) {
                 setPhase('long-break')
@@ -73,7 +114,7 @@ export function usePomodoroTimer() {
             setSecondsLeft(focusMinutes * 60)
             setIsRunning(true)
         }
-    }, [secondsLeft, isRunning, phase, cyclesCompleted, focusMinutes, shortBreakMinutes, longBreakMinutes])
+    }, [secondsLeft, isRunning, phase, cyclesCompleted, focusMinutes, shortBreakMinutes, longBreakMinutes, recordCompletedFocusSession])
 
     const startOrToggleFocus = useCallback(() => {
         if (phase === 'idle') {
@@ -121,6 +162,10 @@ export function usePomodoroTimer() {
         setSecondsLeft(focusMinutes * 60)
     }, [focusMinutes])
 
+    const resetStats = useCallback(() => {
+        setHistory({})
+    }, [])
+
     const statusLabel = (() => {
         if (phase === 'idle') return 'Ready'
         if (phase === 'focus') return 'Focusing'
@@ -148,12 +193,62 @@ export function usePomodoroTimer() {
 
     const sessionsUntilLongBreak = Math.max(0, 4 - cyclesCompleted)
 
+    const todayKey = getDateKey(new Date())
+    const todayStats = history[todayKey] ?? { minutes: 0, sessions: 0 }
+
+    const weeklyChart = useMemo(() => {
+        const days = Array.from({ length: WEEK_LENGTH }, (_, index) => {
+            const date = new Date()
+            date.setDate(date.getDate() - (WEEK_LENGTH - 1 - index))
+            const key = getDateKey(date)
+            return {
+                key,
+                label: getWeekdayLabel(date),
+                minutes: history[key]?.minutes ?? 0,
+                isToday: key === todayKey
+            }
+        })
+
+        const maxMinutes = Math.max(...days.map((day) => day.minutes), 1)
+
+        return days.map((day) => ({
+            ...day,
+            ratio: day.minutes === 0 ? 0 : day.minutes / maxMinutes
+        }))
+    }, [history, todayKey])
+
+    const streak = useMemo(() => {
+        let count = 0
+        const cursor = new Date()
+
+        for (let i = 0; i < STREAK_LOOKBACK_DAYS; i++) {
+            const key = getDateKey(cursor)
+            const sessions = history[key]?.sessions ?? 0
+
+            if (sessions > 0) {
+                count += 1
+            } else if (key !== todayKey) {
+                break
+            }
+
+            cursor.setDate(cursor.getDate() - 1)
+        }
+
+        return count
+    }, [history, todayKey])
+
+    const { totalSessions, totalMinutes } = useMemo(() => {
+        return Object.values(history).reduce(
+            (totals, day) => ({
+                totalSessions: totals.totalSessions + day.sessions,
+                totalMinutes: totals.totalMinutes + day.minutes
+            }),
+            { totalSessions: 0, totalMinutes: 0 }
+        )
+    }, [history])
+
     return {
         phase,
-        secondsLeft,
-        isRunning,
-        sessionsCompletedToday,
-        focusMinutesToday,
         sessionsUntilLongBreak,
         statusLabel,
         messageLabel,
@@ -168,6 +263,13 @@ export function usePomodoroTimer() {
         longBreakMinutes,
         setFocusMinutes,
         setShortBreakMinutes,
-        setLongBreakMinutes
+        setLongBreakMinutes,
+        sessionsCompletedToday: todayStats.sessions,
+        focusMinutesToday: todayStats.minutes,
+        streak,
+        totalSessions,
+        totalFocusHours: Math.round((totalMinutes / 60) * 10) / 10,
+        weeklyChart,
+        resetStats
     }
 }
