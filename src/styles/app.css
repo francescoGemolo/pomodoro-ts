@@ -256,12 +256,13 @@
     transition: color var(--transition-fast) var(--ease);
     border: 2px dashed var(--break-border);
     padding: var(--space-2) var(--space-4);
+    background: var(--break-soft);
     border-radius: var(--radius-full);
     white-space: nowrap;
 }
 
 .btn-break-link:hover {
-    background: var(--break-soft);
+    background-color: transparent;
 }
 
 .btn-break-link:active {
