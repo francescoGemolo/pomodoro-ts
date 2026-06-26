@@ -299,11 +299,10 @@
 
 .home-summary {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-5);
-    padding: var(--space-2) var(--space-6);
-    border: 1px solid var(--neutral-200);
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--accent-soft);
     border-radius: var(--radius-full);
     background: var(--surface);
     box-shadow: var(--shadow-sm);
@@ -313,27 +312,54 @@
 
 .home-stat {
     display: flex;
-    align-items: baseline;
-    gap: var(--space-2);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: var(--space-1) var(--space-5);
+    min-width: 5rem;
+}
+
+.home-stat--accent .home-stat-value {
+    color: var(--accent-strong);
+}
+
+.home-stat--accent .home-stat-sub {
+    color: var(--accent-strong);
+    opacity: 0.6;
+}
+
+.home-stat-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--neutral-400);
+    line-height: 1.4;
 }
 
 .home-stat-value {
     font-size: var(--font-size-md);
-    font-weight: var(--weight-bold);
+    font-weight: var(--weight-heavy);
     color: var(--neutral-950);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
 }
 
-.home-stat-label {
-    font-size: var(--font-size-sm);
+.home-stat-sub {
+    font-size: var(--font-size-xs);
     font-weight: var(--weight-medium);
-    color: var(--neutral-500);
+    color: var(--neutral-400);
+    line-height: 1.4;
+    white-space: nowrap;
 }
 
 .home-stat-sep {
     width: 1px;
-    height: 1rem;
     background: var(--neutral-200);
     flex-shrink: 0;
+    align-self: stretch;
+    margin: var(--space-2) 0;
 }
 
 .stats-grid {

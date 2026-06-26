@@ -16,7 +16,10 @@ export default function App() {
         <div className="app">
             <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
-            <PageHeader statusLabel={timer.statusLabel} phase={timer.phase} />
+            <PageHeader
+                statusLabel={timer.statusLabel}
+                phase={timer.phase}
+            />
 
             {activeTab === 'timer' && (
                 <>
@@ -31,10 +34,14 @@ export default function App() {
                         onStartBreak={timer.startBreak}
                         onReset={timer.resetTimer}
                     />
+
                     <HomeSummary
                         focusMinutesToday={timer.focusMinutesToday}
                         sessionsCompletedToday={timer.sessionsCompletedToday}
                         sessionsUntilLongBreak={timer.sessionsUntilLongBreak}
+                        streak={timer.streak}
+                        totalSessions={timer.totalSessions}
+                        totalFocusHours={timer.totalFocusHours}
                     />
                 </>
             )}
