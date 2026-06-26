@@ -4,9 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
+    "dev": "vite",
+    "build": "tsc && vite build --emptyOutDir",
     "preview": "vite preview"
   },
   "dependencies": {
