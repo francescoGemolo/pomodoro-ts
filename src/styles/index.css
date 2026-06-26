@@ -188,6 +188,8 @@ button {
     background: none;
     font-family: inherit;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 button:focus-visible {

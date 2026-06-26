@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { getDateKey, getWeekdayLabel } from '../utils/dateKey'
 
 export type Phase = 'idle' | 'focus' | 'short-break' | 'long-break' | 'paused'
@@ -52,6 +52,8 @@ export function usePomodoroTimer() {
 
     const [history, setHistory] = useState<History>(() => loadHistory())
 
+    const activeFocusMinutesRef = useRef(focusMinutes)
+
     useEffect(() => {
         saveHistory(history)
     }, [history])
@@ -79,18 +81,19 @@ export function usePomodoroTimer() {
     }, [isRunning])
 
     const recordCompletedFocusSession = useCallback(() => {
+        const completedMinutes = activeFocusMinutesRef.current
         const todayKey = getDateKey(new Date())
         setHistory((prev) => {
             const today = prev[todayKey] ?? { minutes: 0, sessions: 0 }
             return {
                 ...prev,
                 [todayKey]: {
-                    minutes: today.minutes + focusMinutes,
+                    minutes: today.minutes + completedMinutes,
                     sessions: today.sessions + 1
                 }
             }
         })
-    }, [focusMinutes])
+    }, [])
 
     useEffect(() => {
         if (secondsLeft !== 0 || isRunning || phase === 'idle' || phase === 'paused') return
@@ -110,6 +113,7 @@ export function usePomodoroTimer() {
             }
             setIsRunning(true)
         } else if (phase === 'short-break' || phase === 'long-break') {
+            activeFocusMinutesRef.current = focusMinutes
             setPhase('focus')
             setSecondsLeft(focusMinutes * 60)
             setIsRunning(true)
@@ -118,6 +122,7 @@ export function usePomodoroTimer() {
 
     const startOrToggleFocus = useCallback(() => {
         if (phase === 'idle') {
+            activeFocusMinutesRef.current = focusMinutes
             setPhase('focus')
             setSecondsLeft(focusMinutes * 60)
             setIsRunning(true)

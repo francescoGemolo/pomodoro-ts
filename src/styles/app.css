@@ -36,8 +36,10 @@
     transition: color var(--transition-fast) var(--ease), background-color var(--transition-fast) var(--ease);
 }
 
-.tab-item:hover {
-    color: var(--neutral-950);
+@media (hover: hover) and (pointer: fine) {
+    .tab-item:hover {
+        color: var(--neutral-950);
+    }
 }
 
 .tab-item.is-active {
@@ -216,8 +218,10 @@
     color: var(--neutral-50);
 }
 
-.btn-primary:hover {
-    opacity: 0.9;
+@media (hover: hover) and (pointer: fine) {
+    .btn-primary:hover {
+        opacity: 0.9;
+    }
 }
 
 .btn-secondary {
@@ -225,15 +229,17 @@
     border: 1px solid var(--neutral-200);
 }
 
-.btn-secondary:hover {
-    background: var(--neutral-100);
-    color: var(--neutral-950);
-}
+@media (hover: hover) and (pointer: fine) {
+    .btn-secondary:hover {
+        background: var(--neutral-100);
+        color: var(--neutral-950);
+    }
 
-.btn-reset:hover {
-    background: #fee2e2;
-    color: #dc2626;
-    border-color: #fecaca;
+    .btn-reset:hover {
+        background: #fee2e2;
+        color: #dc2626;
+        border-color: #fecaca;
+    }
 }
 
 .btn-primary:active,
@@ -261,8 +267,10 @@
     white-space: nowrap;
 }
 
-.btn-break-link:hover {
-    background-color: var(--break-soft);
+@media (hover: hover) and (pointer: fine) {
+    .btn-break-link:hover {
+        background-color: var(--break-soft);
+    }
 }
 
 .btn-break-link:active {
@@ -380,8 +388,10 @@
     box-shadow: var(--shadow-sm);
 }
 
-.stat-card:hover {
-    background: var(--accent-soft);
+@media (hover: hover) and (pointer: fine) {
+    .stat-card:hover {
+        background: var(--accent-soft);
+    }
 }
 
 .stat-label {
@@ -470,8 +480,10 @@
     transition: color var(--transition-fast) var(--ease);
 }
 
-.stats-reset:hover {
-    color: #dc2626;
+@media (hover: hover) and (pointer: fine) {
+    .stats-reset:hover {
+        color: #dc2626;
+    }
 }
 
 .settings-list {
@@ -512,8 +524,10 @@
     transition: background-color var(--transition-fast) var(--ease), opacity var(--transition-fast) var(--ease);
 }
 
-.stepper-btn:hover:not(:disabled) {
-    background: var(--surface);
+@media (hover: hover) and (pointer: fine) {
+    .stepper-btn:hover:not(:disabled) {
+        background: var(--surface);
+    }
 }
 
 .stepper-btn:active:not(:disabled) {
