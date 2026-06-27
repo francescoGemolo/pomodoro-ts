@@ -35,4 +35,7 @@ vite.config.ts
 repopack.config.json
 README.md
 src/assets/animations/catAnimation.json
-public/favicon.svg
+public/
+
+# PWA
+dev-dist/
