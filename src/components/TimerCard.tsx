@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useLottie } from 'lottie-react'
 import catAnimation from '../assets/animations/catAnimation.json'
+import ThemeToggle from './ThemeToggle'
+import type { ThemeMode } from '../hooks/useTheme'
 
 interface TimerCardProps {
     statusLabel: string
@@ -12,6 +14,8 @@ interface TimerCardProps {
     onPrimaryAction: () => void
     onStartBreak: () => void
     onReset: () => void
+    theme: ThemeMode
+    onToggleTheme: () => void
 }
 
 export default function TimerCard({
@@ -23,7 +27,9 @@ export default function TimerCard({
     phase,
     onPrimaryAction,
     onStartBreak,
-    onReset
+    onReset,
+    theme,
+    onToggleTheme
 }: TimerCardProps) {
     const canSkipToBreak = phase === 'focus'
     const canReset = phase !== 'idle'
@@ -44,6 +50,8 @@ export default function TimerCard({
 
     return (
         <main className={ `timer-card card-state-${phase} animate-fade-in` }>
+            <ThemeToggle theme={ theme } onToggle={ onToggleTheme } />
+
             <section className="timer-layout">
                 <div className="timer-panel">
                     <p className="timer-state">{ statusLabel }</p>
