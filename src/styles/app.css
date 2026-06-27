@@ -292,6 +292,7 @@
     border: 1px solid var(--neutral-100);
     background: var(--surface);
     color: var(--neutral-500);
+    box-shadow: var(--shadow-sm);
     z-index: 5;
     transition: color var(--transition-fast) var(--ease), background-color var(--transition-fast) var(--ease), border-color var(--transition-fast) var(--ease), transform var(--transition-fast) var(--ease);
 }
