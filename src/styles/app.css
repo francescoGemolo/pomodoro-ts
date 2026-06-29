@@ -62,7 +62,7 @@
 }
 
 .page-header h1 {
-    font-size: var(--font-size-3xl);
+    font-size: clamp(var(--font-size-2xl), 3.5vw, var(--font-size-3xl));
     font-weight: var(--weight-heavy);
     letter-spacing: -0.5px;
 }
@@ -697,6 +697,7 @@
     .btn-primary,
     .btn-secondary,
     .btn-break {
+        font-size: var(--font-size-md);
         padding: var(--space-3) var(--space-8);
     }
 
