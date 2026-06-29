@@ -1,27 +1,55 @@
-# Audit completo del progetto
+# vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
-L'app è funzionante, è già stata pubblicata e non voglio aggiungere nuove funzionalità se non quelle strettamente necessarie. Quello di cui ho bisogno ora è un controllo completo ed estremamente approfondito dell'intero progetto, con l'obiettivo di individuare qualsiasi aspetto che possa essere migliorato, corretto, ottimizzato o semplificato.
+export default defineConfig({
+  plugins: [react()],
+  base: "/pomodoro-ts/",
+  resolve: {
+    alias: {
+      "lottie-web": "lottie-web/build/player/lottie_light",
+    },
+  },
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) return "vendor";
+        },
+      },
+    },
+  },
+});
 
-Vorrei che analizzassi ogni singolo file del progetto senza tralasciare nulla. Controlla l'architettura generale, l'organizzazione delle cartelle, la qualità del codice, eventuali duplicazioni, incongruenze, codice morto, file inutilizzati, dipendenze non più necessarie, componenti ridondanti, import inutilizzati, funzioni duplicate, problemi di performance, possibili memory leak, render superflui, opportunità di refactoring e qualsiasi elemento che renda il progetto più pesante o difficile da mantenere.
-
-L'obiettivo è ottenere una codebase il più possibile pulita, coerente, leggera, performante e facilmente manutenibile. Se trovi file troppo grandi o che svolgono troppe responsabilità, proponi come suddividerli. Se trovi logiche duplicate o inutilmente complesse, suggerisci come semplificarle.
-
-Ti lascio alcune informazioni utili sul progetto:
-
-* utilizzo **Hugeicons** (documentazione: https://hugeicons.com/docs/integrations/react/quick-start);
-* il progetto utilizza **npm**;
-* utilizzo **Lottie React** (https://github.com/LottieFiles/lottie-react);
-* l'app è una **PWA** realizzata con Vite, `vite-plugin-pwa` e PWA Generator.
-
-Vorrei che verificassi anche che tutte queste librerie siano utilizzate nel modo migliore possibile, controllando configurazione, performance, best practice, tree shaking, dipendenze, bundle finale, comportamento della PWA, Service Worker, cache, installabilità e qualsiasi altro aspetto che ritieni importante.
-
-Ci sono inoltre due modifiche funzionali che vorrei apportare:
-
-* il timer predefinito deve essere di **60 minuti**;
-* l'app deve ricordare automaticamente la durata scelta dall'utente. Ad esempio, se una persona utilizza quasi sempre un timer da 40 minuti, alla riapertura dell'app dovrà ritrovare automaticamente quel valore, mantenendolo salvato tra una sessione e l'altra.
-
-Vorrei anche un controllo completo del repository Git: verifica che `.gitignore` sia corretto, che non ci siano file inutili tracciati, cache, build, file generati automaticamente o qualsiasi altra cosa che non dovrebbe essere presente nel repository.
-
-Quando individui un problema, spiegami perché lo consideri tale, quale beneficio porta la modifica e se si tratta di un intervento necessario, consigliato oppure semplicemente opzionale.
-
-Infine, quando apporti modifiche al codice, mantieni sempre uno stile uniforme e pulito: non lasciare codice commentato, TODO inutili, import non utilizzati, variabili inutilizzate o qualsiasi elemento superfluo. Voglio che il risultato finale sia una codebase pronta per essere mantenuta a lungo, ordinata, coerente e conforme alle migliori pratiche di React, Vite e delle Progressive Web App.
+# package.json
+{
+  "name": "#",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "homepage": "#",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "@hugeicons/core-free-icons": "^4.2.2",
+    "@hugeicons/react": "^1.1.9",
+    "gh-pages": "^6.3.0",
+    "lottie-react": "^2.4.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.0"
+  }
+}
