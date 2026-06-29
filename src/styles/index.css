@@ -192,7 +192,7 @@ body {
     padding: 0;
     overflow: hidden;
     font-family: var(--font-sans);
-    background: var(--bg);
+    background: var(--surface);
     color: var(--neutral-950);
     -webkit-tap-highlight-color: transparent;
     transition: background-color var(--transition-normal) var(--ease), color var(--transition-normal) var(--ease);
