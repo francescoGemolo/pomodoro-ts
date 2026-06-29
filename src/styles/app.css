@@ -362,8 +362,10 @@
     }
 
     .btn-break-link {
-        padding: var(--space-3) var(--space-6);
-        font-size: var(--font-size-md);
+        padding: var(--space-4) var(--space-8);
+        font-size: var(--font-size-lg);
+        width: min(100%, 34rem);
+        text-align: center;
     }
 
     .timer-actions {
