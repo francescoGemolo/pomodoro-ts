@@ -17,7 +17,7 @@ export default function PageHeader({ statusLabel, phase }: PageHeaderProps) {
     return (
         <header className="page-header">
             <hgroup>
-                <h1>Ludi's Focus</h1>
+                <h1>Ludi's 60m</h1>
                 <p>Made by Francesco with love!</p>
             </hgroup>
             <p className={ `status-badge state-${phase}` }>

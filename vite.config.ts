@@ -10,8 +10,8 @@ export default defineConfig({
       devOptions: { enabled: true },
       includeAssets: ["favicon.ico", "apple-touch-icon-180x180.png"],
       manifest: {
-        name: "Ludi's Focus",
-        short_name: "Ludi's Focus",
+        name: "Ludi's 60m",
+        short_name: "60m",
         description: "Pomodoro timer",
         theme_color: "#ffffff",
         background_color: "#ffffff",
