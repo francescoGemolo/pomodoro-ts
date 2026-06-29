@@ -7,17 +7,6 @@ const LIGHT_STATUS_BAR_COLOR = '#ffffff'
 const DARK_STATUS_BAR_COLOR = '#1e1815'
 
 function getInitialTheme(): ThemeMode {
-    try {
-        const stored = window.localStorage.getItem(THEME_STORAGE_KEY)
-        if (stored === 'light' || stored === 'dark') return stored
-    } catch {
-        // Storage may be unavailable (e.g. private browsing); fall back to system preference.
-    }
-
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark'
-    }
-
     return 'light'
 }
 
