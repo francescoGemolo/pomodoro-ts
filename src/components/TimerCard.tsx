@@ -37,7 +37,7 @@ export default function TimerCard({
     const { View, play, pause } = useLottie({
         animationData: catAnimation,
         loop: true,
-        autoplay: false,
+        autoplay: false
     })
 
     useEffect(() => {
@@ -49,51 +49,62 @@ export default function TimerCard({
     }, [phase, play, pause])
 
     return (
-        <main className={ `timer-card card-state-${phase} animate-fade-in` }>
-            <ThemeToggle theme={ theme } onToggle={ onToggleTheme } />
+        <main className={`timer-card card-state-${phase} animate-fade-in`}>
+            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
 
             <section className="timer-layout">
                 <div className="timer-panel">
-                    <p className="timer-state">{ statusLabel }</p>
+                    <p className="timer-state">
+                        {statusLabel}
+                    </p>
 
-                    <time className="timer-display" dateTime={ isoDuration }>
-                        { formattedTime }
+                    <time
+                        className="timer-display"
+                        dateTime={isoDuration}
+                    >
+                        {formattedTime}
                     </time>
 
-                    <p className="timer-message">{ messageLabel }</p>
+                    <p className="timer-message">
+                        {messageLabel}
+                    </p>
 
                     <div className="timer-actions">
-                        <button type="button" className="btn-primary" onClick={ onPrimaryAction }>
-                            { primaryLabel }
+                        <button
+                            type="button"
+                            className="btn-primary"
+                            onClick={onPrimaryAction}
+                        >
+                            {primaryLabel}
                         </button>
 
                         <button
                             type="button"
-                            className={ `btn-secondary btn-reset${canReset ? '' : ' btn-slot-hidden'}` }
-                            onClick={ onReset }
-                            disabled={ !canReset }
-                            aria-hidden={ !canReset }
-                            tabIndex={ canReset ? 0 : -1 }
+                            className={`btn-secondary btn-reset${canReset ? '' : ' btn-slot-hidden'}`}
+                            onClick={onReset}
+                            disabled={!canReset}
+                            aria-hidden={!canReset}
+                            tabIndex={canReset ? 0 : -1}
                         >
                             Reset Session
                         </button>
-                    </div>
 
-                    <button
-                        type="button"
-                        className={ `btn-break-link${canSkipToBreak ? '' : ' btn-slot-hidden'}` }
-                        onClick={ onStartBreak }
-                        disabled={ !canSkipToBreak }
-                        aria-hidden={ !canSkipToBreak }
-                        tabIndex={ canSkipToBreak ? 0 : -1 }
-                    >
-                        Take a Break
-                    </button>
+                        <button
+                            type="button"
+                            className={`btn-break${canSkipToBreak ? '' : ' btn-slot-hidden'}`}
+                            onClick={onStartBreak}
+                            disabled={!canSkipToBreak}
+                            aria-hidden={!canSkipToBreak}
+                            tabIndex={canSkipToBreak ? 0 : -1}
+                        >
+                            Take a Break
+                        </button>
+                    </div>
                 </div>
 
                 <div className="cat-container">
                     <div className="cat-peek">
-                        { View }
+                        {View}
                     </div>
                 </div>
             </section>
