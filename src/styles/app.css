@@ -686,7 +686,10 @@
     }
 
     .btn-break-link {
+        padding: var(--space-3) var(--space-8);
         text-align: center;
+        width: min(100%, 34rem);
+        font-size: var(--font-size-lg);
     }
 
     .theme-toggle {
