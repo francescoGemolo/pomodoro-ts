@@ -40,9 +40,9 @@ function saveHistory(history: History) {
 }
 
 export function usePomodoroTimer() {
-    const [focusMinutes, setFocusMinutes] = useState(25)
-    const [shortBreakMinutes, setShortBreakMinutes] = useState(5)
-    const [longBreakMinutes, setLongBreakMinutes] = useState(15)
+    const [focusMinutes, setFocusMinutes] = useState(60)
+    const [shortBreakMinutes, setShortBreakMinutes] = useState(10)
+    const [longBreakMinutes, setLongBreakMinutes] = useState(20)
 
     const [phase, setPhase] = useState<Phase>('idle')
     const [previousPhase, setPreviousPhase] = useState<Phase>('focus')

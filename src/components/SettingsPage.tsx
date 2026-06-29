@@ -72,7 +72,7 @@ export default function SettingsPage({
                 <p className="timer-state">Settings</p>
 
                 <div className="settings-list">
-                    <MinuteStepper label="Focus Time (min)" value={focusMinutes} max={60} onChange={onFocusMinutesChange} />
+                    <MinuteStepper label="Focus Time (min)" value={focusMinutes} max={180} onChange={onFocusMinutesChange} />
                     <MinuteStepper label="Short Break (min)" value={shortBreakMinutes} max={30} onChange={onShortBreakMinutesChange} />
                     <MinuteStepper label="Long Break (min)" value={longBreakMinutes} max={60} onChange={onLongBreakMinutesChange} />
                 </div>
