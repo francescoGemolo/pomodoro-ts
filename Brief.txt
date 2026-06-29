@@ -103,3 +103,98 @@ export default defineConfig({
 </body>
 
 </html>
+
+# .md
+# Refactoring & Code Review Instructions – Pomodoro App (React + TypeScript + Vite)
+
+Questo progetto è una Pomodoro App sviluppata con React, TypeScript e Vite. Utilizza Lottie per l’animazione del gatto e in futuro verrà integrata una PWA tramite plugin Vite.
+
+L’app funziona correttamente nello stato attuale. L’obiettivo di questo intervento non è modificarne il comportamento, ma renderla più pulita, coerente e pronta per evoluzioni future.
+
+---
+
+## Obiettivo generale
+
+Effettuare una revisione strutturale del codice senza introdurre nuove feature o cambiare la logica esistente.  
+Il focus è su:
+
+- rimozione di codice morto
+- eliminazione di duplicazioni
+- semplificazione di logiche inutili o ridondanti
+- miglioramento della coerenza tra file e stili
+- riordino strutturale dei file
+
+---
+
+## CSS / Styling
+
+### index.css
+- Rimuovere variabili e regole non utilizzate
+- Eliminare uso eccessivo o incoerente della palette (es. fuchsia di Tailwind se non realmente necessaria)
+- Tenere solo ciò che è effettivamente referenziato nel progetto
+
+### app.css
+- Riordinare completamente il file senza cambiare la logica degli stili
+- Strutturare le regole in modo coerente (stesso ordine per classi e sezioni)
+- Eliminare ripetizioni e regole sovrapposte
+- Valutare l’uso di `clamp()` nelle variabili solo se coerente con l’attuale sistema di design già adottato
+- Rendere il file leggibile e prevedibile senza introdurre nuove scelte stilistiche
+
+### Considerazione struttura
+Valutare se spostare gli stili fuori da eventuali cartelle “styles” per aderire alla struttura standard generata da Vite, mantenendo coerenza e semplicità del progetto.
+
+---
+
+## HTML (entry point)
+
+- Sostituire il boilerplate attuale con una versione minimale
+- Mantenere solo ciò che è necessario per:
+  - caricamento app React
+  - base SEO minima
+  - futura compatibilità PWA (senza includere già metadati inutili)
+
+---
+
+## Cartella `src`
+
+Analizzare tutti i file:
+
+- `.ts`
+- `.tsx`
+- hooks
+- utilities
+- componenti
+
+Interventi richiesti:
+
+- eliminare codice non utilizzato
+- rimuovere duplicazioni logiche
+- semplificare funzioni troppo verbose senza cambiarne il comportamento
+- uniformare naming e struttura dove incoerente
+- verificare coerenza tra hook e componenti
+- rimuovere export/import non necessari
+
+Non è un refactoring funzionale: l’app deve rimanere identica nel comportamento.
+
+---
+
+## Vincoli importanti
+
+- Non modificare la logica dell’app
+- Non introdurre nuove feature
+- Non cambiare UX o flussi esistenti
+- Non aggiungere commenti nel codice
+- Restituire codice pulito, ordinato e formattato
+- Priorità assoluta: coerenza e leggibilità
+
+---
+
+## Output atteso
+
+Codice finale:
+
+- più pulito
+- senza ridondanze
+- coerente tra file
+- pronto per futura estensione PWA
+- mantenendo identico comportamento attuale
