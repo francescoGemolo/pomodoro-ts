@@ -188,7 +188,7 @@
 }
 
 .timer-message {
-    font-size: var(--font-size-xl);
+    font-size: clamp(var(--font-size-lg), 1.2vw, var(--font-size-xl));
     font-weight: var(--weight-semibold);
     color: var(--neutral-500);
     padding-bottom: var(--space-4);
@@ -310,11 +310,12 @@
     align-self: end;
     flex-shrink: 0;
     transform: translateZ(0);
+    --peek-offset: clamp(-30px, -4vh, -10px);
 }
 
 .cat-peek {
     position: absolute;
-    bottom: clamp(-25px, -3vh, -5px);
+    bottom: var(--peek-offset);
     left: 50%;
     width: min(85%, 320px);
     transform: translateX(-50%);
