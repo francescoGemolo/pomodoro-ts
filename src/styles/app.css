@@ -254,7 +254,7 @@
 }
 
 .btn-break-link {
-    margin-top: var(--space-1);
+    margin-top: var(--space-2);
     font-size: var(--font-size-sm);
     font-weight: var(--weight-semibold);
     background: transparent;
@@ -349,9 +349,9 @@
 }
 
 @media (min-width: 821px) {
-    .home-summary {
+    /* .home-summary {
         display: none;
-    }
+    } */
 
     .app {
         grid-template-rows: auto auto 1fr;
@@ -366,6 +366,7 @@
         font-size: var(--font-size-lg);
         width: min(100%, 34rem);
         text-align: center;
+        margin-top: var(--space-2);
     }
 
     .timer-actions {
@@ -715,6 +716,7 @@
         text-align: center;
         width: min(100%, 34rem);
         font-size: var(--font-size-lg);
+        margin-top: var(--space-2);
     }
 
     .theme-toggle {
@@ -780,9 +782,9 @@
     }
 
     .btn-break-link {
-        padding: var(--space-2) var(--space-4);
-        font-size: var(--font-size-sm);
-        margin-top: 0;
+        padding: var(--space-3) var(--space-8);
+        font-size: var(--font-size-md);
+        margin-top: var(--space-2);
     }
 
     .cat-container {
