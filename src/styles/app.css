@@ -348,6 +348,29 @@
     align-self: center;
 }
 
+@media (min-width: 821px) {
+    .home-summary {
+        display: none;
+    }
+
+    .app {
+        grid-template-rows: auto auto 1fr;
+    }
+
+    .cat-container {
+        height: clamp(260px, 42vh, 420px);
+    }
+
+    .btn-break-link {
+        padding: var(--space-3) var(--space-6);
+        font-size: var(--font-size-md);
+    }
+
+    .timer-actions {
+        gap: var(--space-4);
+    }
+}
+
 .home-stat {
     display: flex;
     flex-direction: column;
@@ -752,8 +775,8 @@
     }
 
     .btn-break-link {
-        padding: var(--space-1) var(--space-3);
-        font-size: var(--font-size-xs);
+        padding: var(--space-2) var(--space-4);
+        font-size: var(--font-size-sm);
         margin-top: 0;
     }
 
