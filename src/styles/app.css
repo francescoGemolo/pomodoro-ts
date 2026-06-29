@@ -643,7 +643,7 @@
     }
 
     .tab-bar::after {
-        content: '';
+        content: "";
         position: fixed;
         bottom: 0;
         left: 0;
@@ -667,25 +667,27 @@
 
     .timer-card {
         --card-pad-x: var(--space-4);
-        --card-pad-y: var(--space-6);
+        --card-pad-y: var(--space-4);
     }
 
     .timer-layout {
         grid-template-columns: 1fr;
-        gap: var(--space-4);
+        gap: var(--space-3);
     }
 
     .timer-panel {
         align-items: center;
         text-align: center;
+        gap: var(--space-1);
     }
 
     .timer-display {
-        font-size: clamp(4.5rem, 16vw, 10rem);
+        font-size: clamp(4.2rem, 15vw, 9rem);
+        line-height: 0.88;
     }
 
     .timer-message {
-        padding-bottom: var(--space-2);
+        padding-bottom: var(--space-1);
     }
 
     .timer-actions {
@@ -705,7 +707,7 @@
     }
 
     .cat-container {
-        height: clamp(160px, 26vh, 260px);
+        height: clamp(140px, 22vh, 220px);
     }
 
     .stats-grid {
@@ -713,7 +715,7 @@
     }
 }
 
-@media (max-height: 700px) {
+@media (max-height: 780px) {
     .timer-display {
         font-size: clamp(3.75rem, 14vw, 10rem);
     }
