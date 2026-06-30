@@ -1,6 +1,8 @@
+import type { Phase } from '../hooks/usePomodoroTimer'
+
 interface PageHeaderProps {
     statusLabel: string
-    phase: string
+    phase: Phase
 }
 
 function StudyLampIcon() {

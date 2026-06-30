@@ -3,6 +3,7 @@ import { useLottie } from 'lottie-react'
 import catAnimation from '../assets/animations/catAnimation.json'
 import ThemeToggle from './ThemeToggle'
 import type { ThemeMode } from '../hooks/useTheme'
+import type { Phase } from '../hooks/usePomodoroTimer'
 
 interface TimerCardProps {
     statusLabel: string
@@ -10,7 +11,7 @@ interface TimerCardProps {
     isoDuration: string
     messageLabel: string
     primaryLabel: string
-    phase: string
+    phase: Phase
     onPrimaryAction: () => void
     onStartBreak: () => void
     onReset: () => void

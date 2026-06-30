@@ -10,6 +10,22 @@ const HISTORY_STORAGE_KEY = 'ludis-focus-history'
 const WEEK_LENGTH = 7
 const STREAK_LOOKBACK_DAYS = 365
 
+const STATUS_LABELS: Record<Phase, string> = {
+    idle: 'Ready',
+    focus: 'Focusing',
+    'short-break': 'Short Break',
+    'long-break': 'Long Break',
+    paused: 'Paused'
+}
+
+const MESSAGE_LABELS: Record<Phase, string> = {
+    idle: 'A clean slate awaits.',
+    focus: 'Stay in the zone.',
+    'short-break': 'Take a quick breath.',
+    'long-break': 'Time to fully recharge.',
+    paused: 'Ready when you are.'
+}
+
 function formatTime(totalSeconds: number): string {
     const minutes = Math.floor(totalSeconds / 60)
     const seconds = totalSeconds % 60
@@ -171,23 +187,8 @@ export function usePomodoroTimer() {
         setHistory({})
     }, [])
 
-    const statusLabel = (() => {
-        if (phase === 'idle') return 'Ready'
-        if (phase === 'focus') return 'Focusing'
-        if (phase === 'short-break') return 'Short Break'
-        if (phase === 'long-break') return 'Long Break'
-        if (phase === 'paused') return 'Paused'
-        return 'Ready'
-    })()
-
-    const messageLabel = (() => {
-        if (phase === 'idle') return 'A clean slate awaits.'
-        if (phase === 'focus') return 'Stay in the zone.'
-        if (phase === 'short-break') return 'Take a quick breath.'
-        if (phase === 'long-break') return 'Time to fully recharge.'
-        if (phase === 'paused') return 'Ready when you are.'
-        return 'A clean slate awaits.'
-    })()
+    const statusLabel = STATUS_LABELS[phase]
+    const messageLabel = MESSAGE_LABELS[phase]
 
     const primaryLabel = (() => {
         if (phase === 'idle') return 'Start Focus'

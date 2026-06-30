@@ -16,62 +16,62 @@ export default function App() {
 
     return (
         <div className="app">
-            <TabBar activeTab={ activeTab } onChange={ setActiveTab } />
+            <TabBar activeTab={activeTab} onChange={setActiveTab} />
 
             <PageHeader
-                statusLabel={ timer.statusLabel }
-                phase={ timer.phase }
+                statusLabel={timer.statusLabel}
+                phase={timer.phase}
             />
 
-            { activeTab === 'timer' && (
+            {activeTab === 'timer' && (
                 <>
                     <TimerCard
-                        statusLabel={ timer.statusLabel }
-                        formattedTime={ timer.formattedTime }
-                        isoDuration={ timer.isoDuration }
-                        messageLabel={ timer.messageLabel }
-                        primaryLabel={ timer.primaryLabel }
-                        phase={ timer.phase }
-                        onPrimaryAction={ timer.startOrToggleFocus }
-                        onStartBreak={ timer.startBreak }
-                        onReset={ timer.resetTimer }
-                        theme={ theme }
-                        onToggleTheme={ toggleTheme }
+                        statusLabel={timer.statusLabel}
+                        formattedTime={timer.formattedTime}
+                        isoDuration={timer.isoDuration}
+                        messageLabel={timer.messageLabel}
+                        primaryLabel={timer.primaryLabel}
+                        phase={timer.phase}
+                        onPrimaryAction={timer.startOrToggleFocus}
+                        onStartBreak={timer.startBreak}
+                        onReset={timer.resetTimer}
+                        theme={theme}
+                        onToggleTheme={toggleTheme}
                     />
 
                     <HomeSummary
-                        focusMinutesToday={ timer.focusMinutesToday }
-                        sessionsCompletedToday={ timer.sessionsCompletedToday }
-                        sessionsUntilLongBreak={ timer.sessionsUntilLongBreak }
-                        streak={ timer.streak }
-                        totalSessions={ timer.totalSessions }
-                        totalFocusHours={ timer.totalFocusHours }
+                        focusMinutesToday={timer.focusMinutesToday}
+                        sessionsCompletedToday={timer.sessionsCompletedToday}
+                        sessionsUntilLongBreak={timer.sessionsUntilLongBreak}
+                        streak={timer.streak}
+                        totalSessions={timer.totalSessions}
+                        totalFocusHours={timer.totalFocusHours}
                     />
                 </>
-            ) }
+            )}
 
-            { activeTab === 'stats' && (
+            {activeTab === 'stats' && (
                 <StatsPage
-                    focusMinutesToday={ timer.focusMinutesToday }
-                    sessionsCompletedToday={ timer.sessionsCompletedToday }
-                    streak={ timer.streak }
-                    totalSessions={ timer.totalSessions }
-                    totalFocusHours={ timer.totalFocusHours }
-                    weeklyChart={ timer.weeklyChart }
-                    onResetStats={ timer.resetStats }
+                    focusMinutesToday={timer.focusMinutesToday}
+                    sessionsCompletedToday={timer.sessionsCompletedToday}
+                    streak={timer.streak}
+                    totalSessions={timer.totalSessions}
+                    totalFocusHours={timer.totalFocusHours}
+                    weeklyChart={timer.weeklyChart}
+                    onResetStats={timer.resetStats}
                 />
-            ) }
+            )}
 
-            { activeTab === 'settings' && (
+            {activeTab === 'settings' && (
                 <SettingsPage
-                    focusMinutes={ timer.focusMinutes }
-                    shortBreakMinutes={ timer.shortBreakMinutes }
-                    longBreakMinutes={ timer.longBreakMinutes }
-                    onFocusMinutesChange={ timer.setFocusMinutes }
-                    onShortBreakMinutesChange={ timer.setShortBreakMinutes }
-                    onLongBreakMinutesChange={ timer.setLongBreakMinutes }
+                    focusMinutes={timer.focusMinutes}
+                    shortBreakMinutes={timer.shortBreakMinutes}
+                    longBreakMinutes={timer.longBreakMinutes}
+                    onFocusMinutesChange={timer.setFocusMinutes}
+                    onShortBreakMinutesChange={timer.setShortBreakMinutes}
+                    onLongBreakMinutesChange={timer.setLongBreakMinutes}
                 />
-            ) }
+            )}
         </div>
     )
 }

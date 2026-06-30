@@ -6,12 +6,8 @@ const THEME_STORAGE_KEY = 'ludis-focus-theme'
 const LIGHT_STATUS_BAR_COLOR = '#ffffff'
 const DARK_STATUS_BAR_COLOR = '#1e1815'
 
-function getInitialTheme(): ThemeMode {
-    return 'light'
-}
-
 export function useTheme() {
-    const [theme, setTheme] = useState<ThemeMode>(getInitialTheme)
+    const [theme, setTheme] = useState<ThemeMode>('light')
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme)

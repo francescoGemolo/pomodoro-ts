@@ -349,13 +349,6 @@
         height: clamp(260px, 42vh, 420px);
     }
 
-    .btn-break-link {
-        padding: var(--space-3) var(--space-8);
-        font-size: var(--font-size-lg);
-        width: min(100%, 34rem);
-        text-align: center;
-    }
-
     .timer-actions {
         gap: var(--space-4);
     }
