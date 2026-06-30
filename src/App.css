@@ -68,9 +68,17 @@
 }
 
 .page-header hgroup p {
-    font-size: var(--font-size-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-size: clamp(var(--font-size-sm), 1.4vw + 0.4rem, var(--font-size-lg));
     font-weight: var(--weight-medium);
     color: var(--neutral-500);
+}
+
+.page-header hgroup p svg {
+    display: none;
+    flex-shrink: 0;
 }
 
 .status-badge {
@@ -655,8 +663,13 @@
         width: 100%;
     }
 
-    .page-header hgroup p {
+    .byline-text {
         display: none;
+    }
+
+    .page-header hgroup p svg {
+        display: block;
+        color: var(--accent-strong);
     }
 
     .timer-card {

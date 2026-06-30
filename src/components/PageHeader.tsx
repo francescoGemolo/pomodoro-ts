@@ -1,8 +1,6 @@
-import type { Phase } from '../hooks/usePomodoroTimer'
-
 interface PageHeaderProps {
     statusLabel: string
-    phase: Phase
+    phase: string
 }
 
 function StudyLampIcon() {
@@ -48,6 +46,14 @@ function PlayIcon() {
     )
 }
 
+function HeartIcon() {
+    return (
+        <svg viewBox="0 0 24 24" width={14} height={14} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19.5 12.572 12 20l-7.5-7.428a5 5 0 1 1 7.5-6.566 5 5 0 1 1 7.5 6.566Z" />
+        </svg>
+    )
+}
+
 export default function PageHeader({ statusLabel, phase }: PageHeaderProps) {
     const getStatusIcon = () => {
         if (phase === 'focus') return <StudyLampIcon />
@@ -60,7 +66,11 @@ export default function PageHeader({ statusLabel, phase }: PageHeaderProps) {
         <header className="page-header">
             <hgroup>
                 <h1>Ludi's 60m</h1>
-                <p>Made by Francesco with love!</p>
+                <p className="byline">
+                    Made by Francesco with
+                    <span className="byline-text"> love!</span>
+                    <HeartIcon />
+                </p>
             </hgroup>
             <p className={`status-badge state-${phase}`}>
                 {getStatusIcon()}
